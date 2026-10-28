@@ -1,0 +1,231 @@
+/* Admin Dashboard Styles - Ported from ASP.NET */
+
+/* === STAT CARDS === */
+.stat-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    border-radius: 8px;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.stat-card.border-start-warning {
+    border-left: 4px solid #ffc107 !important;
+}
+
+.stat-card.border-start-success {
+    border-left: 4px solid #28a745 !important;
+}
+
+.stat-card.border-start-primary {
+    border-left: 4px solid #007bff !important;
+}
+
+.stat-card.border-start-info {
+    border-left: 4px solid #17a2b8 !important;
+}
+
+/* === ICON CIRCLES === */
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.bg-light-warning {
+    background-color: #fff3cd;
+}
+
+.bg-light-success {
+    background-color: #d4edda;
+}
+
+.bg-light-primary {
+    background-color: #d1ecf1;
+}
+
+.bg-light-info {
+    background-color: #d1ecf1;
+}
+
+.bg-light-danger {
+    background-color: #f8d7da;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-primary {
+    color: #007bff !important;
+}
+
+.text-info {
+    color: #17a2b8 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+/* === DASHBOARD ANIMATIONS === */
+.fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === ICON SQUARE === */
+.icon-square {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* === PROGRESS BARS === */
+.progress {
+    height: 8px;
+    border-radius: 10px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+/* === TABLE STYLES === */
+.table-datatable {
+    font-size: 14px;
+}
+
+.table-datatable thead {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.table-datatable tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.product-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.no-image-placeholder {
+    width: 60px;
+    height: 60px;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: #adb5bd;
+}
+
+/* === BADGES === */
+.badge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.badge-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* === CARD SHADOWS === */
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid #e3e4e6;
+    padding: 1rem 1.25rem;
+}
+
+/* === BUTTONS === */
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-danger {
+    background-color: #e91e63;
+    border-color: #e91e63;
+}
+
+.btn-danger:hover {
+    background-color: #c2185b;
+    border-color: #c2185b;
+}
+
+.btn-outline-danger {
+    color: #e91e63;
+    border-color: #e91e63;
+}
+
+.btn-outline-danger:hover {
+    background-color: #e91e63;
+    border-color: #e91e63;
+    color: white;
+}

@@ -1,0 +1,79 @@
+@extends('layouts.app')
+
+@section('title', 'Liên hệ')
+
+@section('content')
+<style>
+    .contact-card {
+        background: #fff;
+        padding: 28px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        border: 1px solid rgba(0,0,0,0.03);
+    }
+    .contact-card label { font-weight:600; }
+    .contact-textarea {
+        min-height: 260px;
+        resize: vertical;
+        padding: 14px;
+        font-size: 15px;
+    }
+</style>
+
+<div class="container my-5">
+
+    <h2 class="text-center mb-4">📞 Liên hệ với chúng tôi</h2>
+
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+    @if($errors->any())
+        <div class="alert alert-danger">{{ $errors->first() }}</div>
+    @endif
+
+    <div class="row">
+        <!-- FORM LIÊN HỆ -->
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="contact-card">
+                @auth
+                    <form method="post" action="{{ route('contact.store') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Nội dung</label>
+                            <textarea name="NoiDung" class="form-control contact-textarea" required placeholder="Viết nội dung liên hệ của bạn ở đây...">{{ old('NoiDung', old('content')) }}</textarea>
+                        </div>
+
+                        <button class="btn btn-primary w-100 mt-2">
+                            Gửi liên hệ
+                        </button>
+                    </form>
+                @else
+                    <div class="text-center py-4">
+                        <i class="bi bi-person-lock fs-1 text-muted mb-3 d-block"></i>
+                        <p class="mb-3">Vui lòng đăng nhập để gửi liên hệ cho chúng tôi.</p>
+                        <a class="btn btn-primary px-4" href="{{ route('login') }}">Đăng nhập ngay</a>
+                    </div>
+                @endauth
+            </div>
+        </div>
+
+        <!-- GOOGLE MAP -->
+        <div class="col-md-6">
+            <h5>📍 Địa chỉ cửa hàng</h5>
+            <p class="text-muted">140 Lê Trọng Tấn, Tây Thạnh, Tân Phú, TP.HCM</p>
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.062468307409!2d106.62660097480543!3d10.806509989344078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be27d8b4f4d%3A0x92dcba2950430867!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBUaBawxqFuZyBUUC4gSENNIChIVUlUKQ!5e0!3m2!1svi!2s!4v1703140000000!5m2!1svi!2s"
+                    width="100%"
+                    height="350"
+                    style="border:0; border-radius: 8px;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</div>
+@endsection
