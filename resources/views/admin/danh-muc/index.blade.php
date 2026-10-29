@@ -13,5 +13,5 @@
 <form class="d-inline" method="post" action="{{ route('admin.danh-muc.destroy', $category->MaDM) }}" onsubmit="return confirm('Xóa danh mục này?')">@csrf @method('delete')<button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button></form>
 </td></tr>
 @empty<tr><td colspan="5" class="text-center text-muted py-4">Chưa có danh mục</td></tr>@endforelse
-</tbody></table></div><div class="mt-3">{{ $categories->links() }}</div>
+</tbody></table></div><div class="mt-3">{{ $categories->onEachSide(1)->links() }}</div>
 @endsection

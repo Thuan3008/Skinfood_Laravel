@@ -20,6 +20,65 @@ class HomeController extends Controller
                 ->where('TrangThaiSanPham', 'not like', '%ngừng%')));
     }
 
+    private function applyStorefrontFilters($query, Request $request, bool $allowTypeFilter = true)
+    {
+        $typeIds = $allowTypeFilter
+            ? array_values(array_filter(array_map('intval', (array) $request->query('type', []))))
+            : [];
+        $brandIds = array_values(array_filter(array_map('intval', (array) $request->query('brand', []))));
+        $availability = (string) $request->query('availability', '');
+        $sort = (string) $request->query('sort', 'newest');
+        $priceRange = (string) $request->query('price_range', '');
+        [$minPrice, $maxPrice] = match ($priceRange) {
+            'under_100' => [0, 100000],
+            '100_300' => [100000, 300000],
+            '300_600' => [300000, 600000],
+            'over_600' => [600000, null],
+            default => [null, null],
+        };
+
+        $query
+            ->when($typeIds !== [], fn ($builder) => $builder->whereIn('MaLoai', $typeIds))
+            ->when($brandIds !== [], fn ($builder) => $builder->whereIn('MaTH', $brandIds))
+            ->when($minPrice !== null, fn ($builder) => $builder->where('GiaBan', '>=', $minPrice))
+            ->when($maxPrice !== null, fn ($builder) => $builder->where('GiaBan', '<=', $maxPrice));
+
+        match ($availability) {
+            'in_stock' => $query->where('SoLuongTon', '>', 0),
+            'sale' => $query->where('GiamGia', '>', 0),
+            default => null,
+        };
+
+        match ($sort) {
+            'price_asc' => $query->orderBy('GiaBan'),
+            'price_desc' => $query->orderByDesc('GiaBan'),
+            'name_asc' => $query->orderBy('TenSP'),
+            'oldest' => $query->orderBy('MaSP'),
+            default => $query->latest('MaSP'),
+        };
+
+        return [
+            'typeIds' => $typeIds,
+            'brandIds' => $brandIds,
+            'availability' => $availability,
+            'sort' => $sort,
+            'priceRange' => $priceRange,
+        ];
+    }
+
+    private function productListView(string $title, $query, Request $request, $filterTypes, bool $allowTypeFilter = true)
+    {
+        $filters = $this->applyStorefrontFilters($query, $request, $allowTypeFilter);
+
+        return view('home.products', [
+            'title' => $title,
+            'products' => $query->with(['thuongHieu', 'loai'])->paginate(12)->withQueryString(),
+            'filterTypes' => $filterTypes,
+            'filterBrands' => ThuongHieu::orderBy('TenTH')->get(['MaTH', 'TenTH']),
+            'filters' => $filters,
+        ]);
+    }
+
     private function homeData(?int $maTH = null): array
     {
         $now = now();
@@ -74,8 +133,50 @@ class HomeController extends Controller
     public function search(Request $request) { $keyword=trim((string)$request->query('keyword','')); $products=$this->publicProducts()->when($keyword!=='',fn($q)=>$q->where(fn($q)=>$q->where('TenSP','like',"%{$keyword}%")->orWhere('MoTa','like',"%{$keyword}%")))->orderBy('TenSP')->paginate(12)->withQueryString(); return view('home.search',compact('products','keyword')); }
     public function categories() { return view('home.categories',['categories'=>DanhMuc::with('loaiSanPhams')->get()]); }
     public function types() { return view('home.types',['types'=>LoaiSP::with('danhMuc')->get()]); }
-    public function category(int $id) { $category=DanhMuc::findOrFail($id); return view('home.products',['title'=>$category->TenDM,'products'=>$this->publicProducts()->where('MaDM',$id)->paginate(12)]); }
-    public function type(int $id) { $type=LoaiSP::findOrFail($id); return view('home.products',['title'=>$type->TenLoai,'products'=>$this->publicProducts()->where('MaLoai',$id)->paginate(12)]); }
+    public function category(Request $request, int $id)
+    {
+        $category = DanhMuc::findOrFail($id);
+        $types = LoaiSP::where('MaDM', $id)->orderBy('TenLoai')->get(['MaLoai', 'TenLoai']);
+
+        return $this->productListView(
+            $category->TenDM,
+            $this->publicProducts()->where('MaDM', $id),
+            $request,
+            $types
+        );
+    }
+
+    public function type(Request $request, int $id)
+    {
+        $type = LoaiSP::findOrFail($id);
+
+        return $this->productListView(
+            $type->TenLoai,
+            $this->publicProducts()->where('MaLoai', $id),
+            $request,
+            collect(),
+            false
+        );
+    }
     public function product(int $id) { $product=$this->publicProducts()->with(['danhMuc','loai','thuongHieu','danhGias.nguoiDung'])->findOrFail($id); $relatedProducts=$this->publicProducts()->where('MaDM',$product->MaDM)->where('MaSP','!=',$id)->take(4)->get(); return view('home.product',compact('product','relatedProducts')); }
-    public function variant(string $variant) { $query=$this->publicProducts(); $title=match($variant){ 'hot'=>'Sản phẩm HOT','sale'=>'Sản phẩm SALE',default=>'Tất cả sản phẩm'}; if($variant==='hot')$query->orderByDesc('GiaBan'); elseif($variant==='sale')$query->where('GiamGia','>',0); else $query->latest('MaSP'); return view('home.products',['title'=>$title,'products'=>$query->paginate(12)]); }
+    public function variant(Request $request, string $variant)
+    {
+        $query = $this->publicProducts();
+        $title = match ($variant) {
+            'hot' => 'Sản phẩm HOT',
+            'sale' => 'Sản phẩm SALE',
+            default => 'Tất cả sản phẩm',
+        };
+
+        if ($variant === 'sale') {
+            $query->where('GiamGia', '>', 0);
+        }
+
+        return $this->productListView(
+            $title,
+            $query,
+            $request,
+            LoaiSP::orderBy('TenLoai')->get(['MaLoai', 'TenLoai'])
+        );
+    }
 }

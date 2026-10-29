@@ -78,7 +78,7 @@
     </div>
 
     @if(isset($contacts) && method_exists($contacts, 'links'))
-        {{ $contacts->links() }}
+        {{ $contacts->onEachSide(1)->links() }}
     @endif
 </div>
 @endsection

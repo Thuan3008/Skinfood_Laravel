@@ -36,6 +36,6 @@
             @endforelse
         </tbody>
     </table>
-    {{ $accounts->links() }}
+    {{ $accounts->onEachSide(1)->links() }}
 </div>
 @endsection

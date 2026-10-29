@@ -2,8 +2,61 @@
 
 @section('title', 'Xác nhận và Thanh toán')
 
+@push('styles')
+<style>
+    .checkout-review .shipping-card .card-body,
+    .checkout-review .shipping-card .form-label,
+    .checkout-review .order-card .card-body {
+        text-align: left;
+    }
+
+    .checkout-review .shipping-card .form-control {
+        display: block;
+        width: 100% !important;
+        max-width: none !important;
+        text-align: left;
+    }
+
+    .checkout-review .shipping-card .form-label {
+        display: block;
+        width: 100%;
+        font-weight: 600;
+    }
+
+    .checkout-review .order-table th:first-child,
+    .checkout-review .order-table td:first-child {
+        text-align: left;
+    }
+
+    .checkout-review .order-table th:nth-child(2),
+    .checkout-review .order-table td:nth-child(2),
+    .checkout-review .order-table th:nth-child(3),
+    .checkout-review .order-table td:nth-child(3) {
+        text-align: center !important;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .checkout-review .order-table th:nth-child(2),
+    .checkout-review .order-table td:nth-child(2) {
+        width: 72px;
+    }
+
+    .checkout-review .order-table th:nth-child(3),
+    .checkout-review .order-table td:nth-child(3) {
+        width: 130px;
+    }
+
+    .checkout-review .payment-methods,
+    .checkout-review .payment-methods .form-label,
+    .checkout-review .payment-methods .form-check {
+        text-align: left;
+    }
+</style>
+@endpush
+
 @section('content')
-<div class="container py-5">
+<div class="container py-5 checkout-review">
     <h2 class="text-center mb-4">Xác nhận đơn hàng</h2>
 
     @if(session('error'))
@@ -18,7 +71,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div class="card shadow-sm mb-4">
+                <div class="card shadow-sm mb-4 shipping-card">
                     <div class="card-header bg-info text-white">
                         <h5 class="mb-0">1. Thông tin giao hàng</h5>
                     </div>
@@ -44,18 +97,18 @@
             </div>
 
             <div class="col-md-6">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm order-card">
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">2. Đơn hàng của bạn</h5>
                     </div>
                     <div class="card-body">
                         @if(!empty($cart))
-                            <table class="table">
+                            <table class="table order-table">
                                 <thead>
                                     <tr>
                                         <th>Sản phẩm</th>
                                         <th>SL</th>
-                                        <th class="text-end">Thành tiền</th>
+                                        <th>Thành tiền</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,7 +116,7 @@
                                         <tr>
                                             <td>{{ $item['name'] }}</td>
                                             <td>{{ $item['quantity'] }}</td>
-                                            <td class="text-end">{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}₫</td>
+                                            <td>{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}₫</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -89,7 +142,7 @@
 
                             <hr />
 
-                            <div class="mb-3">
+                            <div class="mb-3 payment-methods">
                                 <label class="form-label">Chọn phương thức thanh toán</label>
                                 <div>
                                     <div class="form-check">

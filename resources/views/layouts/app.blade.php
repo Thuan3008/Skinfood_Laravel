@@ -227,13 +227,13 @@
         <div class="quick-options-list">
             <a href="tel:1900636510" class="quick-options-item">
                 <span class="quick-opt-icon icon-phone"><i class="bi bi-telephone-fill"></i></span>
-                <span class="quick-opt-label">1900 636510</span>
+                <span class="quick-opt-label">1900 JQKA</span>
             </a>
             <a href="https://zalo.me/0911513170" target="_blank" rel="noopener" class="quick-options-item">
                 <span class="quick-opt-icon icon-zalo"><i class="bi bi-chat-dots-fill"></i></span>
                 <span class="quick-opt-label">Chat Zalo</span>
             </a>
-            <a href="https://m.me/skinfood" target="_blank" rel="noopener" class="quick-options-item">
+            <a href="https://www.messenger.com/e2ee/t/7179508335494924" target="_blank" rel="noopener" class="quick-options-item">
                 <span class="quick-opt-icon icon-messenger"><i class="bi bi-messenger"></i></span>
                 <span class="quick-opt-label">Chat Messenger</span>
             </a>

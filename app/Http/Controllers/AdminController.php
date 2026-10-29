@@ -39,16 +39,47 @@ class AdminController extends Controller
 
     public function products(Request $request) {
         $q = trim((string) $request->get('q', ''));
+        $categoryId = $request->integer('category');
+        $typeId = $request->integer('type');
+        $brandId = $request->integer('brand');
+        $stock = (string) $request->get('stock', '');
+        $status = trim((string) $request->get('status', ''));
+        $minPrice = $request->filled('min_price') ? max(0, (float) $request->get('min_price')) : null;
+        $maxPrice = $request->filled('max_price') ? max(0, (float) $request->get('max_price')) : null;
+        if ($minPrice !== null && $maxPrice !== null && $minPrice > $maxPrice) {
+            [$minPrice, $maxPrice] = [$maxPrice, $minPrice];
+        }
         $query = SanPham::with(['danhMuc', 'thuongHieu', 'loai']);
+
         if ($q !== '') {
             $query->where(function ($sub) use ($q) {
                 $sub->where('TenSP', 'like', "%{$q}%")
                     ->orWhere('MaSP', $q);
             });
         }
+
+        $query
+            ->when($categoryId > 0, fn ($builder) => $builder->where('MaDM', $categoryId))
+            ->when($typeId > 0, fn ($builder) => $builder->where('MaLoai', $typeId))
+            ->when($brandId > 0, fn ($builder) => $builder->where('MaTH', $brandId))
+            ->when($status !== '', fn ($builder) => $builder->where('TrangThaiSanPham', $status))
+            ->when($minPrice !== null, fn ($builder) => $builder->where('GiaBan', '>=', $minPrice))
+            ->when($maxPrice !== null, fn ($builder) => $builder->where('GiaBan', '<=', $maxPrice));
+
+        match ($stock) {
+            'in_stock' => $query->where('SoLuongTon', '>', 0),
+            'out_of_stock' => $query->where('SoLuongTon', '<=', 0),
+            'low_stock' => $query->whereBetween('SoLuongTon', [1, 10]),
+            default => null,
+        };
+
         return view('admin.products.index', [
             'products' => $query->latest('MaSP')->paginate(10)->withQueryString(),
             'q' => $q,
+            'categories' => DanhMuc::orderBy('TenDM')->get(['MaDM', 'TenDM']),
+            'types' => LoaiSP::orderBy('TenLoai')->get(['MaLoai', 'MaDM', 'TenLoai']),
+            'brands' => ThuongHieu::orderBy('TenTH')->get(['MaTH', 'TenTH']),
+            'filters' => compact('categoryId', 'typeId', 'brandId', 'stock', 'status', 'minPrice', 'maxPrice'),
         ]);
     }
 

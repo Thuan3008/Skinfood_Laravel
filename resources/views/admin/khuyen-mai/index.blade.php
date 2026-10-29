@@ -79,7 +79,7 @@
     </div>
 
     @if(isset($promotions) && method_exists($promotions, 'links'))
-        {{ $promotions->links() }}
+        {{ $promotions->onEachSide(1)->links() }}
     @endif
 </div>
 @endsection

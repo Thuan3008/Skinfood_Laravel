@@ -47,6 +47,6 @@
             @endforelse
         </tbody>
     </table>
-    <div class="mt-3">{{ $brands->links() }}</div>
+    <div class="mt-3">{{ $brands->onEachSide(1)->links() }}</div>
 </div>
 @endsection

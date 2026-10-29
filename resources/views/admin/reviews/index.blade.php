@@ -49,6 +49,6 @@
             </tbody>
         </table>
 
-        {{ $reviews->links() }}
+        {{ $reviews->onEachSide(1)->links() }}
     </div>
 @endsection

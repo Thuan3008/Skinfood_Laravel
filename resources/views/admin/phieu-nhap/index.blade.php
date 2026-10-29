@@ -59,7 +59,7 @@
     </div>
 
     <div class="mt-3">
-        {{ $phieus->links() }}
+        {{ $phieus->onEachSide(1)->links() }}
     </div>
 </div>
 @endsection

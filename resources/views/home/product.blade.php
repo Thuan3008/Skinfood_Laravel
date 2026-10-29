@@ -9,7 +9,7 @@ $hasDiscount = (float)($product->GiamGia ?? 0) > 0;
 $finalPrice = $hasDiscount ? $product->GiaBan * (1 - $product->GiamGia / 100) : $product->GiaBan;
 $canBuy = ($product->SoLuongTon ?? 0) > 0;
 @endphp
-<div class="container my-5">
+<div class="container my-5 product-detail-page">
     {{-- PHẦN 1: THÔNG TIN SẢN PHẨM --}}
     <div class="card shadow-sm border-0 mb-5">
         <div class="card-body p-4">
@@ -21,7 +21,7 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
                     </div>
                 </div>
                 {{-- Cột Thông Tin --}}
-                <div class="col-md-7 mt-4 mt-md-0">
+                <div class="col-md-7 mt-4 mt-md-0 product-info">
                     <nav aria-label="breadcrumb" class="mb-3">
                         <ol class="breadcrumb bg-transparent p-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-muted">Trang chủ</a></li>
@@ -120,7 +120,7 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
                     </div>
                     <hr class="my-4">
                     @auth
-                        <div class="bg-light p-4 rounded border">
+                        <div class="bg-light p-4 rounded border review-form-wrap">
                             <h5 class="font-weight-bold mb-3">Viết đánh giá của bạn</h5>
                             <form method="post" action="{{ route('reviews.store', $product->MaSP) }}">
                                 @csrf
@@ -133,9 +133,9 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
                                     </div>
                                     <span class="fw-bold mb-0">Mức độ hài lòng:</span>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="fw-bold">Nội dung đánh giá:</label>
-                                    <textarea name="NoiDung" class="form-control" rows="3" placeholder="Chia sẻ cảm nhận về sản phẩm..." required></textarea>
+                                <div class="mb-3 review-content-field">
+                                    <label class="fw-bold mb-2" for="reviewContent">Nội dung đánh giá:</label>
+                                    <textarea id="reviewContent" name="NoiDung" class="form-control" rows="4" placeholder="Chia sẻ cảm nhận về sản phẩm..." required></textarea>
                                 </div>
                                 <button class="btn btn-primary px-4">Gửi đánh giá</button>
                             </form>
@@ -168,7 +168,7 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
                                     @endif
                                     <img src="{{ $sp->HinhAnh ? asset('legacy/Content/images/' . $sp->HinhAnh) : 'https://via.placeholder.com/200' }}" class="card-img-top p-3" alt="{{ $sp->TenSP }}" style="height:200px;object-fit:contain">
                                 </div>
-                                <div class="card-body text-center d-flex flex-column">
+                                <div class="card-body text-start d-flex flex-column related-product-info">
                                     <h6 class="card-title text-truncate fw-bold" title="{{ $sp->TenSP }}">{{ $sp->TenSP }}</h6>
                                     <div class="mt-auto">
                                         @if((float)($sp->GiamGia ?? 0) > 0)
@@ -189,5 +189,48 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
 </div>
 <style>
 .star-rating input{display:none}.star-rating label{cursor:pointer;font-size:1.5rem;color:#ccc;transition:color .2s}.star-rating label:hover,.star-rating label:hover ~ label,.star-rating input:checked ~ label{color:#ffc107}.product-description img{max-width:100%;height:auto}.card-title{font-size:.95rem}
+
+.product-detail-page .product-info,
+.product-detail-page .product-info h2,
+.product-detail-page .product-info p,
+.product-detail-page .product-info .breadcrumb,
+.product-detail-page .product-description,
+.product-detail-page #danhgia,
+.product-detail-page .related-products,
+.product-detail-page .related-product-info {
+    text-align: left !important;
+}
+
+.product-detail-page .product-description {
+    width: 100%;
+    line-height: 1.7;
+}
+
+.product-detail-page .review-form-wrap,
+.product-detail-page .review-form-wrap h5,
+.product-detail-page .review-form-wrap form,
+.product-detail-page .review-form-wrap label {
+    text-align: left !important;
+}
+
+.product-detail-page .review-content-field,
+.product-detail-page .review-content-field label {
+    display: block;
+    width: 100%;
+}
+
+.product-detail-page .review-content-field textarea {
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 120px;
+    resize: vertical;
+    text-align: left;
+}
+
+.product-detail-page .related-product-info .card-title {
+    width: 100%;
+    text-align: left !important;
+}
 </style>
 @endsection

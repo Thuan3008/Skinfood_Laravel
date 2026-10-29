@@ -90,7 +90,7 @@
         </div>
 
         <div class="mt-3">
-            {{ $orders->links() }}
+            {{ $orders->onEachSide(1)->links() }}
         </div>
     </div>
 @endsection

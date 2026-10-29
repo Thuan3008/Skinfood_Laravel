@@ -38,7 +38,7 @@
         </tbody>
     </table>
     <div class="mt-3">
-        {{ $suppliers->links() }}
+        {{ $suppliers->onEachSide(1)->links() }}
     </div>
 </div>
 @endsection

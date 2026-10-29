@@ -25,14 +25,71 @@
 
         <div class="card shadow-sm mb-4">
             <div class="card-body">
-                <form method="get" action="{{ route('admin.products') }}" class="row g-2">
-                    <div class="col-md-5">
+                <form method="get" action="{{ route('admin.products') }}" class="row g-3 admin-product-filters">
+                    <div class="col-12 col-xl-4">
+                        <label class="form-label" for="productKeyword">Tên hoặc mã sản phẩm</label>
                         <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Tìm theo tên sản phẩm hoặc mã SP..." value="{{ $q ?? '' }}">
-                            <button class="btn btn-secondary" type="submit">
-                                <i class="fa-solid fa-search"></i> Tìm
-                            </button>
+                            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input id="productKeyword" type="text" name="q" class="form-control" placeholder="Nhập tên hoặc mã SP..." value="{{ $q ?? '' }}">
                         </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <label class="form-label" for="productCategory">Danh mục</label>
+                        <select id="productCategory" name="category" class="form-select">
+                            <option value="">Tất cả danh mục</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->MaDM }}" @selected(($filters['categoryId'] ?? 0) === $category->MaDM)>{{ $category->TenDM }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <label class="form-label" for="productType">Loại sản phẩm</label>
+                        <select id="productType" name="type" class="form-select">
+                            <option value="">Tất cả loại</option>
+                            @foreach($types as $type)
+                                <option value="{{ $type->MaLoai }}" data-category="{{ $type->MaDM }}" @selected(($filters['typeId'] ?? 0) === $type->MaLoai)>{{ $type->TenLoai }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <label class="form-label" for="productBrand">Thương hiệu</label>
+                        <select id="productBrand" name="brand" class="form-select">
+                            <option value="">Tất cả thương hiệu</option>
+                            @foreach($brands as $brand)
+                                <option value="{{ $brand->MaTH }}" @selected(($filters['brandId'] ?? 0) === $brand->MaTH)>{{ $brand->TenTH }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <label class="form-label" for="productStock">Tồn kho</label>
+                        <select id="productStock" name="stock" class="form-select">
+                            <option value="">Tất cả tồn kho</option>
+                            <option value="in_stock" @selected(($filters['stock'] ?? '') === 'in_stock')>Còn hàng</option>
+                            <option value="low_stock" @selected(($filters['stock'] ?? '') === 'low_stock')>Sắp hết (1–10)</option>
+                            <option value="out_of_stock" @selected(($filters['stock'] ?? '') === 'out_of_stock')>Hết hàng</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 col-md-3 col-xl-2">
+                        <label class="form-label" for="productMinPrice">Giá từ</label>
+                        <input id="productMinPrice" type="number" name="min_price" class="form-control" min="0" step="1000" placeholder="0" value="{{ $filters['minPrice'] ?? '' }}">
+                    </div>
+                    <div class="col-6 col-md-3 col-xl-2">
+                        <label class="form-label" for="productMaxPrice">Giá đến</label>
+                        <input id="productMaxPrice" type="number" name="max_price" class="form-control" min="0" step="1000" placeholder="Không giới hạn" value="{{ $filters['maxPrice'] ?? '' }}">
+                    </div>
+                    <div class="col-12 col-md-3 col-xl-3">
+                        <label class="form-label" for="productStatus">Trạng thái kinh doanh</label>
+                        <select id="productStatus" name="status" class="form-select">
+                            <option value="">Tất cả trạng thái</option>
+                            @foreach(['Còn hàng', 'Hết hàng', 'Tạm ngưng', 'Ngừng kinh doanh'] as $productStatus)
+                                <option value="{{ $productStatus }}" @selected(($filters['status'] ?? '') === $productStatus)>{{ $productStatus }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-3 col-xl-5 d-flex align-items-end gap-2">
+                        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Lọc sản phẩm</button>
+                        <a href="{{ route('admin.products') }}" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate-left me-1"></i> Xóa lọc</a>
                     </div>
                 </form>
             </div>
@@ -110,7 +167,7 @@
                 Hiển thị <strong>{{ $products->firstItem() ?? 0 }}–{{ $products->lastItem() ?? 0 }}</strong>
                 trong tổng số <strong>{{ $products->total() }}</strong> sản phẩm
             </p>
-            <div>{{ $products->links('pagination::bootstrap-5') }}</div>
+            <div>{{ $products->onEachSide(1)->links('pagination::bootstrap-5') }}</div>
         </div>
     </div>
 @endsection
