@@ -12,7 +12,6 @@
 <div class="container-xl py-4 storefront-catalog-page">
     <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
         <div>
-            <div class="small text-muted mb-1">Danh mục</div>
             <h3 class="section-title text-primary mb-0">{{ $title }}</h3>
         </div>
         <button class="btn btn-outline-primary d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#storefrontFilters" aria-expanded="false" aria-controls="storefrontFilters">
@@ -22,7 +21,7 @@
     </div>
 
     <div class="row g-4 align-items-start">
-        <aside class="col-lg-3 col-xl-2">
+        <aside class="col-lg-4 col-xl-3">
             <div class="collapse d-lg-block" id="storefrontFilters">
                 <form id="storefrontFilterForm" method="GET" action="{{ url()->current() }}" class="storefront-filter-sidebar">
                     <div class="storefront-filter-heading">
@@ -33,7 +32,7 @@
                     @if(($filterTypes ?? collect())->isNotEmpty())
                         <section class="storefront-filter-group">
                             <h6>Loại sản phẩm <i class="fa-solid fa-chevron-up"></i></h6>
-                            <div class="storefront-filter-options">
+                            <div class="storefront-filter-options storefront-filter-scroll">
                                 @foreach($filterTypes as $type)
                                     <label class="storefront-check" for="storeType{{ $type->MaLoai }}">
                                         <input id="storeType{{ $type->MaLoai }}" type="checkbox" name="type[]" value="{{ $type->MaLoai }}" @checked(in_array($type->MaLoai, $filters['typeIds'] ?? [], true))>
@@ -95,7 +94,7 @@
             </div>
         </aside>
 
-        <main class="col-lg-9 col-xl-10">
+        <main class="col-lg-8 col-xl-9">
             <div class="storefront-catalog-toolbar mb-3">
                 <span class="text-muted">Tìm thấy <strong>{{ $products->total() }}</strong> sản phẩm</span>
                 <div class="d-flex align-items-center gap-2">
