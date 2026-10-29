@@ -58,14 +58,14 @@
         </div>
     </div>
 
-    <details class="mb-3">
+    <!-- <details class="mb-3">
         <summary class="btn btn-sm btn-outline-secondary">Show Debug Info</summary>
         <div class="card mt-2 p-3 bg-light font-monospace small">
             Labels: {{ $labelsByDay }} <br />
             Data: {{ $dataByDay }} <br />
             PaidOnly: {{ $paidOnly ? 'true' : 'false' }}
         </div>
-    </details>
+    </details> -->
 
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body p-3">
