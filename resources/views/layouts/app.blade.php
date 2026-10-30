@@ -29,9 +29,9 @@
     <section class="top-page-banner" style="text-align: center; background-color: #000; line-height: 0;">
         <a href="{{ route('home') }}">
             <picture>
-                <source media="(min-width:768px)" srcset="https://cdn.hstatic.net/files/1000006063/file/1920x50__dcc483700bc146ce9904885d5c1c11af.jpg">
-                <source media="(max-width:767px)" srcset="https://cdn.hstatic.net/files/1000006063/file/414x68_2794ebe66cb348e1a76b6f94c2fee1b6.jpg">
-                <img src="https://cdn.hstatic.net/files/1000006063/file/414x68_2794ebe66cb348e1a76b6f94c2fee1b6.jpg" alt="Banner" style="width:auto; max-width: 100%;">
+                <source media="(min-width:768px)" srcset="{{ asset('legacy/Content/images/banner/SKINFOOD_banner_desktop_1920x50.png') }}">
+                <source media="(max-width:767px)" srcset="{{ asset('legacy/Content/images/banner/SKINFOOD_banner_mobile_414x68.png') }}">
+                <img src="{{ asset('legacy/Content/images/banner/SKINFOOD_banner_mobile_414x68.png') }}" alt="Banner SkinFood" style="display:block; width:100%; height:auto;">
             </picture>
         </a>
     </section>
