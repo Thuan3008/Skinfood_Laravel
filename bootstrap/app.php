@@ -13,10 +13,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trimStrings(except: ['MatKhau', 'NhapLaiMatKhau']);
         $middleware->alias(['admin' => \App\Http\Middleware\AdminMiddleware::class]);
         $middleware->validateCsrfTokens(except: ['api/thanh-toan/webhook', 'Chat/SendMessage', 'chat/*']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->dontFlash(['MatKhau', 'NhapLaiMatKhau']);
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );

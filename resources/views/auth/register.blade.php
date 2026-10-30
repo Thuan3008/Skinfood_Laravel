@@ -183,6 +183,9 @@
             -webkit-box-shadow: 0 0 0 30px #161e2e inset !important;
             -webkit-text-fill-color: white !important;
         }
+        .invalid-feedback { display: block; color: #ffb4b4; font-size: .8rem; text-align: left; }
+        .form-control.is-invalid, .form-select.is-invalid { border-color: #ff8585 !important; }
+        .password-help { color: #cbd5e1; font-size: .78rem; margin: -6px 0 12px; }
     </style>
 </head>
 <body>
@@ -208,79 +211,80 @@
                 <div class="row g-2">
                     <div class="col-7">
                         <div class="form-floating">
-                            <input type="text" name="HoTen" id="HoTen" value="{{ old('HoTen') }}" required class="form-control" placeholder="Họ tên" />
-                            <label>Họ và tên</label>
+                            <input type="text" name="HoTen" id="HoTen" value="{{ old('HoTen') }}" required minlength="2" maxlength="100" autocomplete="name" class="form-control @error('HoTen') is-invalid @enderror" placeholder="Họ tên" aria-describedby="HoTen-error" />
+                            <label for="HoTen">Họ và tên</label>
                         </div>
+                        @error('HoTen')<div id="HoTen-error" class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="col-5">
                         <div class="form-floating">
-                            <select name="GioiTinh" class="form-select ps-3">
-                                <option value="Nam" {{ old('GioiTinh') == 'Nam' ? 'selected' : '' }}>Nam</option>
+                            <select name="GioiTinh" id="GioiTinh" class="form-select ps-3 @error('GioiTinh') is-invalid @enderror" aria-describedby="GioiTinh-error">
+                                <option value="Nam" {{ old('GioiTinh', 'Nam') == 'Nam' ? 'selected' : '' }}>Nam</option>
                                 <option value="Nữ" {{ old('GioiTinh') == 'Nữ' ? 'selected' : '' }}>Nữ</option>
+                                <option value="Khác" {{ old('GioiTinh') == 'Khác' ? 'selected' : '' }}>Khác</option>
                             </select>
-                            <label>Giới tính</label>
+                            <label for="GioiTinh">Giới tính</label>
                         </div>
+                        @error('GioiTinh')<div id="GioiTinh-error" class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                 </div>
 
                 <div class="row g-2">
                     <div class="col-6">
                         <div class="form-floating">
-                            <input type="date" name="NgaySinh" value="{{ old('NgaySinh') }}" class="form-control" placeholder="Ngày sinh" />
-                            <label>Ngày sinh</label>
+                            <input type="date" name="NgaySinh" id="NgaySinh" value="{{ old('NgaySinh') }}" max="{{ now()->toDateString() }}" autocomplete="bday" class="form-control @error('NgaySinh') is-invalid @enderror" placeholder="Ngày sinh" aria-describedby="NgaySinh-error" />
+                            <label for="NgaySinh">Ngày sinh</label>
                         </div>
+                        @error('NgaySinh')<div id="NgaySinh-error" class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="col-6">
                         <div class="form-floating">
-                            <input type="text" name="SoDienThoai" value="{{ old('SoDienThoai') }}" class="form-control" placeholder="SĐT" />
-                            <label>Điện thoại</label>
+                            <input type="tel" name="SoDienThoai" id="SoDienThoai" value="{{ old('SoDienThoai') }}" maxlength="12" pattern="(0|\+84)[35789][0-9]{8}" title="Số di động Việt Nam, ví dụ 0901234567 hoặc +84901234567" autocomplete="tel" class="form-control @error('SoDienThoai') is-invalid @enderror" placeholder="SĐT" aria-describedby="SoDienThoai-error" />
+                            <label for="SoDienThoai">Điện thoại</label>
                         </div>
+                        @error('SoDienThoai')<div id="SoDienThoai-error" class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                 </div>
 
                 <div class="form-floating">
-                    <input type="text" name="DiaChi" value="{{ old('DiaChi') }}" class="form-control" placeholder="Địa chỉ" />
-                    <label>Địa chỉ</label>
+                    <input type="text" name="DiaChi" id="DiaChi" value="{{ old('DiaChi') }}" maxlength="255" autocomplete="street-address" class="form-control @error('DiaChi') is-invalid @enderror" placeholder="Địa chỉ" aria-describedby="DiaChi-error" />
+                    <label for="DiaChi">Địa chỉ</label>
                 </div>
+                @error('DiaChi')<div id="DiaChi-error" class="invalid-feedback">{{ $message }}</div>@enderror
 
                 <div class="my-2 border-bottom border-secondary opacity-25"></div>
 
                 <div class="form-floating">
-                    <input type="email" name="TenDangNhap" value="{{ old('TenDangNhap') }}" required class="form-control" placeholder="Email" />
-                    <label>Email đăng nhập</label>
+                    <input type="email" name="TenDangNhap" id="TenDangNhap" value="{{ old('TenDangNhap') }}" required maxlength="100" autocomplete="username" class="form-control @error('TenDangNhap') is-invalid @enderror" placeholder="Email" aria-describedby="TenDangNhap-error" />
+                    <label for="TenDangNhap">Email đăng nhập</label>
                 </div>
+                @error('TenDangNhap')<div id="TenDangNhap-error" class="invalid-feedback">{{ $message }}</div>@enderror
 
                 <div class="form-floating">
-                    <input type="password" name="MatKhau" id="MatKhau" required class="form-control" placeholder="Mật khẩu" />
-                    <label>Mật khẩu</label>
+                    <input type="password" name="MatKhau" id="MatKhau" required minlength="8" maxlength="72" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,72}" title="Từ 8–72 ký tự, gồm chữ hoa, chữ thường và số" autocomplete="new-password" class="form-control @error('MatKhau') is-invalid @enderror" placeholder="Mật khẩu" aria-describedby="password-help MatKhau-error" />
+                    <label for="MatKhau">Mật khẩu</label>
                 </div>
+                <p class="password-help" id="password-help">Từ 8–72 ký tự, gồm chữ hoa, chữ thường và số.</p>
+                @error('MatKhau')<div id="MatKhau-error" class="invalid-feedback">{{ $message }}</div>@enderror
 
                 <div class="form-floating">
-                    <input type="password" name="NhapLaiMatKhau" id="NhapLaiMatKhau" required class="form-control" placeholder="Nhập lại" />
-                    <label>Xác nhận mật khẩu</label>
+                    <input type="password" name="NhapLaiMatKhau" id="NhapLaiMatKhau" required minlength="8" maxlength="72" autocomplete="new-password" class="form-control @error('NhapLaiMatKhau') is-invalid @enderror" placeholder="Nhập lại" aria-describedby="NhapLaiMatKhau-error" />
+                    <label for="NhapLaiMatKhau">Xác nhận mật khẩu</label>
                 </div>
+                @error('NhapLaiMatKhau')<div id="NhapLaiMatKhau-error" class="invalid-feedback">{{ $message }}</div>@enderror
 
                 <div class="text-center mt-3 mb-1">
                     <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8;">Chọn Avatar</span>
                 </div>
                 <div class="avatar-scroll">
-                    <label class="avatar-item active">
-                        <input type="radio" name="Avatar" value="1.jpg" hidden checked />
-                        <img src="{{ asset('legacy/Content/avatars/1.jpg') }}" alt="Avatar 1" />
-                    </label>
-                    <label class="avatar-item">
-                        <input type="radio" name="Avatar" value="2.jpg" hidden />
-                        <img src="{{ asset('legacy/Content/avatars/2.jpg') }}" alt="Avatar 2" />
-                    </label>
-                    <label class="avatar-item">
-                        <input type="radio" name="Avatar" value="3.jpg" hidden />
-                        <img src="{{ asset('legacy/Content/avatars/3.jpg') }}" alt="Avatar 3" />
-                    </label>
-                    <label class="avatar-item">
-                        <input type="radio" name="Avatar" value="4.jpg" hidden />
-                        <img src="{{ asset('legacy/Content/avatars/4.jpg') }}" alt="Avatar 4" />
-                    </label>
+                    @foreach(['1.jpg', '2.jpg', '3.jpg', '4.jpg'] as $avatar)
+                        <label class="avatar-item {{ old('Avatar', '1.jpg') === $avatar ? 'active' : '' }}">
+                            <input type="radio" name="Avatar" value="{{ $avatar }}" hidden @checked(old('Avatar', '1.jpg') === $avatar) />
+                            <img src="{{ asset('legacy/Content/avatars/'.$avatar) }}" alt="Avatar {{ $loop->iteration }}" />
+                        </label>
+                    @endforeach
                 </div>
+                @error('Avatar')<div class="invalid-feedback">{{ $message }}</div>@enderror
 
                 <button type="submit" class="btn-submit">Đăng Ký</button>
 
@@ -317,8 +321,8 @@
             if (!form || !pwd || !confirm) return;
 
             function validatePasswords() {
-                const p = (pwd.value || '').trim();
-                const c = (confirm.value || '').trim();
+                const p = pwd.value || '';
+                const c = confirm.value || '';
 
                 if (p === '' || c === '') {
                     confirm.setCustomValidity('');

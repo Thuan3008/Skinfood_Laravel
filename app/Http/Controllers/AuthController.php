@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Models\NguoiDung;
 use App\Models\TaiKhoan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -56,47 +58,28 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function store(Request $request)
+    public function store(RegisterRequest $request)
     {
-        $hoTen = $request->input('HoTen') ?? $request->input('name');
-        $tenDangNhap = $request->input('TenDangNhap') ?? $request->input('username') ?? $request->input('Email');
-        $matKhau = $request->input('MatKhau') ?? $request->input('password');
-        $nhapLaiMatKhau = $request->input('NhapLaiMatKhau') ?? $request->input('password_confirmation');
-        $soDienThoai = $request->input('SoDienThoai') ?? $request->input('phone');
-        $diaChi = $request->input('DiaChi') ?? $request->input('address');
-        $gioiTinh = $request->input('GioiTinh', 'Nam');
-        $ngaySinh = $request->input('NgaySinh');
-        $avatar = $request->input('Avatar', '1.jpg');
+        $data = $request->validated();
+        $account = DB::transaction(function () use ($data) {
+            $person = NguoiDung::create([
+                'HoTen' => $data['HoTen'],
+                'SoDienThoai' => $data['SoDienThoai'] ?? null,
+                'DiaChi' => $data['DiaChi'] ?? null,
+                'GioiTinh' => $data['GioiTinh'],
+                'NgaySinh' => $data['NgaySinh'] ?? null,
+                'Avatar' => $data['Avatar'],
+                'NgayTao' => now(),
+            ]);
 
-        if (!$hoTen || !$tenDangNhap || !$matKhau) {
-            return back()->with('error', 'Vui lòng điền đầy đủ các thông tin bắt buộc.')->withInput();
-        }
-
-        if ($matKhau !== $nhapLaiMatKhau) {
-            return back()->with('error', 'Mật khẩu xác nhận không khớp.')->withInput();
-        }
-
-        if (TaiKhoan::where('TenDangNhap', $tenDangNhap)->exists()) {
-            return back()->with('error', 'Tên đăng nhập / Email này đã tồn tại.')->withInput();
-        }
-
-        $person = NguoiDung::create([
-            'HoTen' => $hoTen,
-            'SoDienThoai' => $soDienThoai,
-            'DiaChi' => $diaChi,
-            'GioiTinh' => $gioiTinh,
-            'NgaySinh' => $ngaySinh ? date('Y-m-d', strtotime($ngaySinh)) : null,
-            'Avatar' => $avatar,
-            'NgayTao' => now(),
-        ]);
-
-        $account = TaiKhoan::create([
-            'TenDangNhap' => $tenDangNhap,
-            'MatKhauHash' => Hash::make($matKhau),
-            'VaiTro' => 'User',
-            'TrangThai' => 'active',
-            'MaND' => $person->MaND,
-        ]);
+            return TaiKhoan::create([
+                'TenDangNhap' => $data['TenDangNhap'],
+                'MatKhauHash' => Hash::make($data['MatKhau']),
+                'VaiTro' => 'User',
+                'TrangThai' => 'active',
+                'MaND' => $person->MaND,
+            ]);
+        });
 
         Auth::login($account);
         $request->session()->regenerate();
