@@ -24,19 +24,13 @@
 
     <h2 class="text-center mb-4">📞 Liên hệ với chúng tôi</h2>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
-    @if($errors->any())
-        <div class="alert alert-danger">{{ $errors->first() }}</div>
-    @endif
-
     <div class="row">
         <!-- FORM LIÊN HỆ -->
-        <div class="col-md-6 mb-4 mb-md-0">
+        <div class="col-md-6 mb-4 mb-md-0" id="contact-chat">
+
+            @if(auth()->check() && $contact)
+                @include('partials.contact-chat', ['isAdminChat'=>false])
+            @else
             <div class="contact-card">
                 @auth
                     <form method="post" action="{{ route('contact.store') }}">
@@ -58,6 +52,7 @@
                     </div>
                 @endauth
             </div>
+            @endif
         </div>
 
         <!-- GOOGLE MAP -->

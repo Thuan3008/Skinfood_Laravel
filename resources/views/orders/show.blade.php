@@ -2,8 +2,20 @@
 
 @section('title', 'Chi tiết đơn hàng #' . $order->MaDH)
 
+@push('styles')
+<style>
+.order-detail-page,
+.order-detail-page .card-body,
+.order-detail-page p,
+.order-detail-page .table a {
+    text-align: left !important;
+}
+.order-detail-page .table a { display: block; }
+</style>
+@endpush
+
 @section('content')
-<div class="container py-5">
+<div class="container py-5 order-detail-page">
     <div class="card shadow-sm">
         <div class="card-body p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">

@@ -8,6 +8,8 @@
 $hasDiscount = (float)($product->GiamGia ?? 0) > 0;
 $finalPrice = $hasDiscount ? $product->GiaBan * (1 - $product->GiamGia / 100) : $product->GiaBan;
 $canBuy = ($product->SoLuongTon ?? 0) > 0;
+$canReview = $product->wasPurchasedBy(auth()->user()?->MaND);
+$reviewTabActive = session('review_submitted') || $errors->hasAny(['rating', 'content']);
 @endphp
 <div class="container my-5 product-detail-page">
     {{-- PHẦN 1: THÔNG TIN SẢN PHẨM --}}
@@ -90,10 +92,10 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
         <div class="card-header bg-white border-bottom-0">
             <ul class="nav nav-tabs" id="productTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active font-weight-bold" id="mota-tab" data-bs-toggle="tab" href="#mota" role="tab">Mô Tả Sản Phẩm</a>
+                    <a class="nav-link {{ $reviewTabActive ? '' : 'active' }} font-weight-bold" id="mota-tab" data-bs-toggle="tab" href="#mota" role="tab">Mô Tả Sản Phẩm</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold" id="danhgia-tab" data-bs-toggle="tab" href="#danhgia" role="tab">
+                    <a class="nav-link {{ $reviewTabActive ? 'active' : '' }} font-weight-bold" id="danhgia-tab" data-bs-toggle="tab" href="#danhgia" role="tab">
                         Đánh Giá ({{ $product->danhGias->where('DuocApprove', true)->count() }})
                     </a>
                 </li>
@@ -102,11 +104,12 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
                 {{-- Tab Mô tả --}}
-                <div class="tab-pane fade show active py-3 px-2" id="mota" role="tabpanel">
+                <div class="tab-pane fade {{ $reviewTabActive ? '' : 'show active' }} py-3 px-2" id="mota" role="tabpanel">
                     <div class="product-description">@if($product->MoTa){!! $product->MoTa !!}@else<em>Chưa có mô tả sản phẩm.</em>@endif</div>
                 </div>
                 {{-- Tab Đánh giá --}}
-                <div class="tab-pane fade py-3 px-2" id="danhgia" role="tabpanel">
+                <div class="tab-pane fade {{ $reviewTabActive ? 'show active' : '' }} py-3 px-2" id="danhgia" role="tabpanel">
+
                     <div class="mb-4">
                         @forelse($product->danhGias->where('DuocApprove', true) as $review)
                             <div class="border-bottom py-3">
@@ -120,6 +123,7 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
                     </div>
                     <hr class="my-4">
                     @auth
+                        @if(!$canReview)<p class="text-muted">Bạn chưa mua sản phẩm này. Đánh giá sẽ hiển thị sau khi được quản trị viên duyệt.</p>@endif
                         <div class="bg-light p-4 rounded border review-form-wrap">
                             <h5 class="font-weight-bold mb-3">Viết đánh giá của bạn</h5>
                             <form method="post" action="{{ route('reviews.store', $product->MaSP) }}">
@@ -127,15 +131,15 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
                                 <div class="mb-3 d-flex align-items-center">
                                     <div class="star-rating me-3">
                                         @for($i = 5; $i >= 1; $i--)
-                                            <input type="radio" id="star{{ $i }}" name="Diem" value="{{ $i }}" @if($i == 5) checked @endif>
-                                            <label for="star{{ $i }}" class="text-warning" style="cursor:pointer;font-size:1.5rem">★</label>
+                                            <input type="radio" id="star{{ $i }}" name="Diem" value="{{ $i }}" @checked((int) old('Diem', 5) === $i) required>
+                                            <label for="star{{ $i }}" title="{{ $i }} sao"><span aria-hidden="true">★</span><span class="visually-hidden">{{ $i }} sao</span></label>
                                         @endfor
                                     </div>
                                     <span class="fw-bold mb-0">Mức độ hài lòng:</span>
                                 </div>
                                 <div class="mb-3 review-content-field">
                                     <label class="fw-bold mb-2" for="reviewContent">Nội dung đánh giá:</label>
-                                    <textarea id="reviewContent" name="NoiDung" class="form-control" rows="4" placeholder="Chia sẻ cảm nhận về sản phẩm..." required></textarea>
+                                    <textarea id="reviewContent" name="NoiDung" class="form-control" rows="4" maxlength="500" placeholder="Chia sẻ cảm nhận về sản phẩm..." required>{{ old('NoiDung') }}</textarea>
                                 </div>
                                 <button class="btn btn-primary px-4">Gửi đánh giá</button>
                             </form>
@@ -188,7 +192,7 @@ $canBuy = ($product->SoLuongTon ?? 0) > 0;
     @endif
 </div>
 <style>
-.star-rating input{display:none}.star-rating label{cursor:pointer;font-size:1.5rem;color:#ccc;transition:color .2s}.star-rating label:hover,.star-rating label:hover ~ label,.star-rating input:checked ~ label{color:#ffc107}.product-description img{max-width:100%;height:auto}.card-title{font-size:.95rem}
+.star-rating{display:inline-flex;flex-direction:row-reverse}.star-rating input{position:absolute;opacity:0;width:1px;height:1px}.star-rating label{cursor:pointer;font-size:1.5rem;color:#ccc;transition:color .2s}.star-rating label:hover,.star-rating label:hover ~ label,.star-rating input:checked ~ label{color:#ffc107}.star-rating input:focus-visible + label{outline:2px solid #0d6efd}.product-description img{max-width:100%;height:auto}.card-title{font-size:.95rem}
 
 .product-detail-page .product-info,
 .product-detail-page .product-info h2,

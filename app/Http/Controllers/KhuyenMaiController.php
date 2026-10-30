@@ -11,8 +11,8 @@ class KhuyenMaiController extends Controller
 {
     public function index()
     {
-        $promotions = KhuyenMai::with('sanPhams')->orderByDesc('NgayBatDau')->paginate(10);
-        return view('admin.khuyen-mai.index', compact('promotions'));
+        $promotions = \App\Support\AdminLists::paginate(KhuyenMai::visibleInAdmin()->with('sanPhams'), 'khuyen-mai');
+        return view('admin.khuyen-mai.index', ['promotions' => $promotions, 'q' => request('q', '')]);
     }
 
     public function create()
@@ -33,8 +33,10 @@ class KhuyenMaiController extends Controller
         if ($data['LoaiGiamGia'] === 'PhanTram' && $data['GiaTriGiam'] > 100) return back()->with('error', 'Phần trăm giảm không được lớn hơn 100.')->withInput();
         try {
             DB::transaction(function () use ($data) {
-                $km = KhuyenMai::create(array_merge($data, ['TrangThai' => isset($data['TrangThai']) ? (bool)$data['TrangThai'] : true]));
-                if (!empty($data['products'])) $km->sanPhams()->attach($data['products']);
+                $products = $data['products'] ?? [];
+                unset($data['products']);
+                $km = KhuyenMai::create(array_merge($data, ['TrangThai' => isset($data['TrangThai']) ? (bool)$data['TrangThai'] : false]));
+                if ($products) $km->sanPhams()->attach($products);
             });
             return redirect()->route('admin.khuyen-mai.index')->with('success', 'Thêm khuyến mãi thành công!');
         } catch (\Exception $e) { return back()->with('error', 'Lỗi: ' . $e->getMessage())->withInput(); }
@@ -61,8 +63,10 @@ class KhuyenMaiController extends Controller
         try {
             DB::transaction(function () use ($data, $id) {
                 $km = KhuyenMai::findOrFail($id);
-                $km->update(array_merge($data, ['TrangThai' => isset($data['TrangThai']) ? (bool)$data['TrangThai'] : true]));
-                $km->sanPhams()->sync($data['products'] ?? []);
+                $products = $data['products'] ?? [];
+                unset($data['products']);
+                $km->update(array_merge($data, ['TrangThai' => isset($data['TrangThai']) ? (bool)$data['TrangThai'] : false]));
+                $km->sanPhams()->sync($products);
             });
             return redirect()->route('admin.khuyen-mai.index')->with('success', 'Cập nhật thành công!');
         } catch (\Exception $e) { return back()->with('error', 'Lỗi: ' . $e->getMessage())->withInput(); }
@@ -70,7 +74,6 @@ class KhuyenMaiController extends Controller
 
     public function destroy(int $id)
     {
-        try { KhuyenMai::destroy($id); return redirect()->route('admin.khuyen-mai.index')->with('success', 'Xóa thành công!'); }
-        catch (\Exception $e) { return back()->with('error', 'Lỗi khi xóa: ' . $e->getMessage()); }
+        return app(AdminRecordController::class)->hide(request(), 'khuyen-mai', $id);
     }
 }

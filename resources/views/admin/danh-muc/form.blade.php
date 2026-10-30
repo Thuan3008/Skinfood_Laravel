@@ -2,7 +2,7 @@
 @section('title', $category->exists ? 'Sửa danh mục' : 'Thêm danh mục')
 @section('content')
 <h1 class="mb-4">{{ $category->exists ? 'Sửa danh mục' : 'Thêm danh mục' }}</h1>
-@if($errors->any())<div class="alert alert-danger"><ul class="mb-0">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+
 <form method="post" action="{{ $category->exists ? route('admin.danh-muc.update', $category->MaDM) : route('admin.danh-muc.store') }}" class="card shadow-sm" style="max-width:650px">
 @csrf @if($category->exists) @method('put') @endif
 <div class="card-body"><label class="form-label fw-bold">Tên danh mục</label><input class="form-control" name="TenDM" maxlength="100" required value="{{ old('TenDM', $category->TenDM) }}"></div>

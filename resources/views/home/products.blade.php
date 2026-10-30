@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $title)
+@section('content-class', 'product-list-content')
 
 @section('content')
 @php
@@ -9,7 +10,7 @@
         + (($filters['priceRange'] ?? '') !== '' ? 1 : 0)
         + (($filters['availability'] ?? '') !== '' ? 1 : 0);
 @endphp
-<div class="container-xl py-4 storefront-catalog-page">
+<div class="container-xl pb-4 storefront-catalog-page">
     <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
         <div>
             <h3 class="section-title text-primary mb-0">{{ $title }}</h3>

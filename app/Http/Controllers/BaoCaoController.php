@@ -12,14 +12,27 @@ class BaoCaoController extends Controller
 {
     public function doanhThuChiTiet(Request $request)
     {
-        $from = (string) $request->get('from', now()->subMonth()->format('Y-m-d'));
-        $to = (string) $request->get('to', now()->format('Y-m-d'));
-        $paidOnly = filter_var($request->get('paidOnly', false), FILTER_VALIDATE_BOOLEAN);
-
-        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $from) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $to) || $from > $to) {
-            $from = now()->subMonth()->format('Y-m-d');
-            $to = now()->format('Y-m-d');
+        $dates = \Illuminate\Support\Facades\Validator::make([
+            'from' => $request->input('from', now()->subMonth()->format('Y-m-d')),
+            'to' => $request->input('to', now()->format('Y-m-d')),
+        ], [
+            'from' => ['required', 'date_format:Y-m-d', 'before:to'],
+            'to' => ['required', 'date_format:Y-m-d'],
+        ], [
+            'from.required' => 'Vui lòng chọn Từ ngày.',
+            'to.required' => 'Vui lòng chọn Đến ngày.',
+            'from.date_format' => 'Từ ngày không hợp lệ.',
+            'to.date_format' => 'Đến ngày không hợp lệ.',
+            'from.before' => 'Từ ngày phải nhỏ hơn Đến ngày.',
+        ]);
+        if ($dates->fails()) {
+            if ($request->expectsJson()) {
+                throw new \Illuminate\Validation\ValidationException($dates);
+            }
+            return redirect()->route('admin.bao-cao.doanh-thu')->withErrors($dates)->withInput();
         }
+        ['from' => $from, 'to' => $to] = $dates->validated();
+        $paidOnly = filter_var($request->get('paidOnly', false), FILTER_VALIDATE_BOOLEAN);
 
         $orderQuery = DonHang::with(['chiTiet.sanPham.danhMuc'])
             ->whereDate('NgayDat', '>=', $from)
@@ -102,6 +115,7 @@ class BaoCaoController extends Controller
         $dataByDay = json_encode(array_values($days));
 
         return view('admin.bao-cao.doanh-thu', [
+            'revenueChart' => \App\Support\RevenueChart::build($orders, $from, $to),
             'totalRevenue' => $totalRevenue,
             'totalOrders' => $totalOrders,
             'from' => $from,

@@ -9,8 +9,8 @@ class NhaCungCapController extends Controller
 {
     public function index()
     {
-        $suppliers = NhaCungCap::orderByDesc('MaNCC')->paginate(10);
-        return view('admin.nha-cung-cap.index', compact('suppliers'));
+        $suppliers = \App\Support\AdminLists::paginate(NhaCungCap::visibleInAdmin(), 'nha-cung-cap');
+        return view('admin.nha-cung-cap.index', ['suppliers' => $suppliers, 'q' => request('q', '')]);
     }
 
     public function create() { return view('admin.nha-cung-cap.create'); }
@@ -51,9 +51,6 @@ class NhaCungCapController extends Controller
 
     public function destroy(int $id)
     {
-        try {
-            NhaCungCap::destroy($id);
-            return redirect()->route('admin.nha-cung-cap.index')->with('success', 'Xóa thành công!');
-        } catch (\Exception $e) { return back()->with('error', 'Lỗi khi xóa: ' . $e->getMessage()); }
+        return app(AdminRecordController::class)->hide(request(), 'nha-cung-cap', $id);
     }
 }

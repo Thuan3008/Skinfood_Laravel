@@ -21,7 +21,13 @@ class CartController extends Controller
             $cart = $json ? json_decode($json, true) : [];
             session(['cart' => is_array($cart) ? $cart : []]);
         }
-        return is_array($cart) ? $cart : [];
+        $cart = is_array($cart) ? $cart : [];
+        $products = SanPham::whereIn('MaSP', array_column($cart, 'id'))->get()->keyBy('MaSP');
+        foreach ($cart as &$item) {
+            $item['available'] = max(0, (int) ($products->get($item['id'])?->SoLuongTon ?? 0));
+        }
+        unset($item);
+        return $cart;
     }
 
     private function saveCart(array $cart): void
@@ -103,6 +109,9 @@ class CartController extends Controller
     {
         $cart = $this->cart();
         if (!$cart) return redirect()->route('cart.index')->with('error', 'Giỏ hàng đang trống.');
+        if (collect($cart)->contains(fn ($item) => $item['available'] < $item['quantity'])) {
+            return redirect()->route('cart.index')->with('error', 'Có sản phẩm hết hàng hoặc không đủ số lượng. Vui lòng cập nhật giỏ hàng.');
+        }
         return view('cart.payment-review', ['cart' => $cart] + $this->cartTotals($cart));
     }
 
@@ -137,7 +146,7 @@ class CartController extends Controller
             $total = 0;
             foreach ($cart as $item) {
                 $product = SanPham::where('MaSP', $item['id'])->lockForUpdate()->firstOrFail();
-                if (($product->SoLuongTon ?? 0) < $item['quantity']) throw new \RuntimeException("Sản phẩm {$product->TenSP} không đủ tồn kho.");
+                if (($product->SoLuongTon ?? 0) < $item['quantity']) throw \Illuminate\Validation\ValidationException::withMessages(['stock' => "Sản phẩm {$product->TenSP} không đủ tồn kho."]);
                 $unitPrice = round((float) $product->GiaBan * (1 - ((float) ($product->GiamGia ?? 0) / 100)), 2);
                 $total += $unitPrice * $item['quantity'];
             }
@@ -148,7 +157,6 @@ class CartController extends Controller
                 $product = SanPham::where('MaSP', $item['id'])->lockForUpdate()->firstOrFail();
                 $unitPrice = round((float) $product->GiaBan * (1 - ((float) ($product->GiamGia ?? 0) / 100)), 2);
                 ChiTietDonHang::create(['MaDH' => $order->MaDH, 'MaSP' => $item['id'], 'SoLuong' => $item['quantity'], 'DonGia' => $unitPrice]);
-                $product->decrement('SoLuongTon', $item['quantity']);
             }
             if ($promotion) $promotion->increment('SoLuongDaDung');
             return $order;
@@ -171,7 +179,7 @@ class CartController extends Controller
     public function availableStock(int $id)
     {
         $product = SanPham::find($id);
-        return response()->json(['success' => (bool) $product, 'available' => (int) ($product->SoLuongTon ?? 0)]);
+        return response()->json(['success' => (bool) $product, 'available' => (int) ($product->SoLuongTon ?? 0)])->header('Cache-Control', 'no-store');
     }
 
     public function applyDiscount(Request $request)
@@ -222,7 +230,9 @@ class CartController extends Controller
         $id ??= session('current_order');
         $order = DonHang::where('MaDH', $id)->where('MaND', auth()->user()->MaND)->firstOrFail();
         abort_unless(in_array($order->PhuongThucThanhToan, ['BankTransfer', 'QR'], true), 400);
-        if ($order->TrangThaiThanhToan !== 'Đã thanh toán') $order->update(['TrangThaiThanhToan' => 'Đã chuyển khoản - chờ xác nhận', 'NgayThanhToan' => null]);
+        app(\App\Services\OrderPaymentService::class)->updateStatus($order->MaDH, 'Đã chuyển khoản - chờ xác nhận', function ($lockedOrder) {
+            abort_if($lockedOrder->TrangThaiThanhToan === 'Đã thanh toán', 422, 'Đơn hàng đã thanh toán.');
+        });
         if ($request->expectsJson() || $request->input('ajax') === '1') return response()->json(['success' => true, 'message' => 'Đã báo shop kiểm tra giao dịch.']);
         return back()->with('success', 'Đã báo shop kiểm tra giao dịch.');
     }
@@ -268,7 +278,12 @@ class CartController extends Controller
         }
         abort_if($order->QrHetHanLuc && $order->QrHetHanLuc->isPast(), 422, 'Mã thanh toán đã hết hạn.');
         abort_if((int) round((float) $order->TongTien) !== (int) round((float) $amount), 422, 'Số tiền không khớp.');
-        $order->update(['TrangThaiThanhToan' => 'Đã thanh toán', 'NgayThanhToan' => now()]);
+        app(\App\Services\OrderPaymentService::class)->updateStatus($order->MaDH, 'Đã thanh toán', function ($lockedOrder) use ($references, $amount) {
+            if ($lockedOrder->TrangThaiThanhToan === 'Đã thanh toán') return;
+            abort_unless(in_array($lockedOrder->MaThamChieuThanhToan, $references, true), 422, 'Mã thanh toán đã thay đổi.');
+            abort_if($lockedOrder->QrHetHanLuc && $lockedOrder->QrHetHanLuc->isPast(), 422, 'Mã thanh toán đã hết hạn.');
+            abort_if((int) round((float) $lockedOrder->TongTien) !== (int) round((float) $amount), 422, 'Số tiền không khớp.');
+        });
         return response()->json(['success' => true, 'order_id' => $order->MaDH]);
     }
 

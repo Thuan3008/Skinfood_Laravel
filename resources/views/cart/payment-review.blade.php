@@ -59,13 +59,6 @@
 <div class="container py-5 checkout-review">
     <h2 class="text-center mb-4">Xác nhận đơn hàng</h2>
 
-    @if(session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
-    @if($errors->any())
-        <div class="alert alert-danger">{{ $errors->first() }}</div>
-    @endif
-
     <form method="POST" action="{{ route('checkout.place') }}">
         @csrf
 
@@ -161,7 +154,7 @@
                             </div>
                         @endif
 
-                        <button type="submit" class="btn btn-success w-100 mt-4 btn-lg" onclick="return confirm('Xác nhận đặt hàng?');">
+                        <button type="submit" class="btn btn-success w-100 mt-4 btn-lg" data-confirm="Xác nhận đặt hàng?">
                             <i class="bi bi-check-circle-fill me-2"></i> XÁC NHẬN ĐẶT HÀNG
                         </button>
                     </div>

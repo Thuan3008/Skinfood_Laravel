@@ -8,12 +8,16 @@
     <link rel="stylesheet" href="{{ asset('legacy/Content/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/site-overrides.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/contact-chat.css') }}">
     @stack('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin-records.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-premium.css') }}">
+    <script>if(window.self !== window.top) document.documentElement.classList.add('admin-embedded');</script>
 </head>
 <body class="admin-shell">
 <div class="admin-wrapper">
     <aside class="admin-sidebar" id="adminSidebar">
-        <div class="admin-brand"><i class="fa-solid fa-user-gear"></i><span>ADMIN PANEL</span></div>
+        <div class="admin-brand"><span class="admin-brand-mark"><i class="fa-solid fa-seedling" aria-hidden="true"></i></span><span>SKINFOOD<small>QUẢN TRỊ CỬA HÀNG</small></span></div>
         <nav class="admin-nav">
             <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
             <a href="{{ route('admin.bao-cao.doanh-thu') }}" class="{{ request()->routeIs('admin.bao-cao.*') ? 'active' : '' }}"><i class="fa-solid fa-chart-column"></i> Báo cáo doanh thu</a>
@@ -42,13 +46,30 @@
     <main class="admin-main">
         <header class="admin-topbar">
             <button type="button" class="btn btn-outline-dark" id="adminSidebarToggle" aria-label="Ẩn hiện menu"><i class="fa-solid fa-bars"></i></button>
-            <div class="ms-auto d-flex align-items-center gap-3"><a href="{{ route('home') }}" class="text-decoration-none text-secondary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Xem cửa hàng</a><span class="text-secondary">Xin chào, <strong>{{ auth()->user()->TenDangNhap ?? 'Admin' }}</strong></span><span class="admin-avatar"><i class="fa-solid fa-user"></i></span></div>
+            @include('admin.partials.breadcrumb')
+            <div class="ms-auto d-flex align-items-center gap-3"><a href="{{ route('home') }}" class="text-decoration-none text-secondary"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Xem cửa hàng</a><span class="text-secondary admin-greeting">Xin chào, <strong>{{ auth()->user()->TenDangNhap ?? 'Admin' }}</strong></span><span class="admin-avatar"><i class="fa-regular fa-user"></i></span></div>
         </header>
-        <section class="admin-content">@if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif @if(session('error'))<div class="alert alert-danger">{{ session('error') }}</div>@endif @yield('content')</section>
+        <section class="admin-content">@yield('content')</section>
     </main>
 </div>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>document.getElementById('adminSidebarToggle')?.addEventListener('click',()=>document.body.classList.toggle('admin-sidebar-collapsed'));</script>
+@include('partials.notifications')
 @stack('scripts')
+<dialog id="adminConfirmDialog" class="admin-confirm-dialog" aria-labelledby="adminConfirmTitle">
+    <span class="admin-confirm-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+    <h2 id="adminConfirmTitle">Xác nhận thao tác</h2><p data-confirm-message></p>
+    <div class="admin-confirm-actions"><button type="button" class="btn btn-outline-secondary" data-confirm-cancel>Hủy bỏ</button><button type="button" class="btn btn-primary" data-confirm-accept>Xác nhận</button></div>
+</dialog>
+<script src="{{ asset('js/admin-ui.js') }}"></script>
+<script src="{{ asset('js/action-confirmation.js') }}"></script>
+<div class="modal fade" id="adminRecordModal" tabindex="-1" aria-labelledby="adminRecordModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-lg-down"><div class="modal-content">
+        <div class="modal-header"><h2 class="modal-title fs-5" id="adminRecordModalTitle">Thông tin</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button></div>
+        <div class="modal-body p-0"><div class="admin-popup-loading" id="adminPopupLoading" hidden role="status"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span>Đang tải thông tin…</div><iframe id="adminRecordFrame" title="Thông tin quản trị"></iframe></div>
+    </div></div>
+</div>
+<script src="{{ asset('js/admin-records.js') }}"></script>
+<script src="{{ asset('js/table-alignment.js') }}"></script>
 </body>
 </html>

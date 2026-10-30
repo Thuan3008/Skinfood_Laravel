@@ -52,6 +52,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/tai-khoan/avatar/{maND}', [ProfileController::class, 'avatar'])->name('profile.avatar');
     Route::post('/san-pham/{product}/danh-gia', [ReviewController::class, 'store'])->name('reviews.store');
     Route::post('/lien-he', [ContactController::class, 'store'])->name('contact.store');
+    Route::get('/lien-he/phan-hoi', [ContactController::class, 'replies'])->name('contact.replies');
+    Route::get('/lien-he/{id}/tin-nhan', [\App\Http\Controllers\ContactConversationController::class, 'messages'])->whereNumber('id')->name('contact.messages');
+    Route::post('/lien-he/{id}/tin-nhan', [\App\Http\Controllers\ContactConversationController::class, 'send'])->whereNumber('id')->middleware('throttle:30,1')->name('contact.send-message');
+    Route::get('/lien-he/{id}/phan-hoi', [ContactController::class, 'reply'])->whereNumber('id')->name('contact.reply');
 });
 Route::get('/tim-kiem', [HomeController::class, 'search'])->name('home.search');
 Route::get('/danh-muc', [HomeController::class, 'categories'])->name('home.categories');
@@ -69,6 +73,10 @@ Route::get('/chinh-sach-doi-tra', fn () => app(ContactController::class)->policy
 Route::get('/chinh-sach-bao-mat', fn () => app(ContactController::class)->policy('chinh-sach-bao-mat'))->name('contact.privacy');
 Route::get('/thuong-hieu/{maTH}', [HomeController::class, 'index'])->name('home.brand');
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/records/{resource}/{id}/view', [\App\Http\Controllers\AdminRecordController::class, 'show'])->whereNumber('id')->name('records.show');
+    Route::get('/records/{resource}/{id}/edit', [\App\Http\Controllers\AdminRecordController::class, 'edit'])->whereNumber('id')->name('records.edit');
+    Route::put('/records/{resource}/{id}', [\App\Http\Controllers\AdminRecordController::class, 'update'])->whereNumber('id')->name('records.update');
+    Route::delete('/records/{resource}/{id}', [\App\Http\Controllers\AdminRecordController::class, 'hide'])->whereNumber('id')->name('records.hide');
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/san-pham', [AdminController::class, 'products'])->name('products');
     Route::get('/san-pham/tao-moi', [AdminController::class, 'createProduct'])->name('products.create');

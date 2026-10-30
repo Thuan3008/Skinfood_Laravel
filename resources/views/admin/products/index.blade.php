@@ -11,17 +11,6 @@
             </a>
         </div>
 
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
 
         <div class="card shadow-sm mb-4">
             <div class="card-body">
@@ -87,7 +76,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-12 col-md-3 col-xl-5 d-flex align-items-end gap-2">
+                    @include('admin.partials.list-toolbar', ['resource' => 'san-pham', 'extrasOnly' => true])
+                    <div class="col-12 col-sm-auto d-flex align-items-end gap-2 admin-filter-actions">
                         <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Lọc sản phẩm</button>
                         <a href="{{ route('admin.products') }}" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate-left me-1"></i> Xóa lọc</a>
                     </div>
@@ -106,7 +96,7 @@
                             <th class="col-product-name">Tên sản phẩm</th>
                             <th class="col-product-meta">Danh mục / Thương hiệu</th>
                             <th class="col-product-price text-end">Giá bán</th>
-                            <th class="col-product-stock text-center">Tồn kho</th>
+                            <th class="col-product-stock text-center">Tồn kho / Trạng thái</th>
                             <th class="col-product-actions text-center">Thao tác</th>
                         </tr>
                     </thead>
@@ -134,24 +124,10 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <span class="badge {{ ($product->SoLuongTon ?? 0) > 0 ? 'bg-success' : 'bg-danger' }}">
-                                        {{ $product->SoLuongTon ?? 0 }}
-                                    </span>
+                                    <span class="admin-stock-number">{{ $product->SoLuongTon ?? 0 }}</span>
+                                    <span class="badge admin-stock-status {{ ($product->SoLuongTon ?? 0) > 0 ? 'bg-success' : 'bg-danger' }}">{{ $product->TrangThaiSanPham ?: (($product->SoLuongTon ?? 0) > 0 ? 'Còn hàng' : 'Hết hàng') }}</span>
                                 </td>
-                                <td class="text-center">
-                                    <div class="admin-product-actions">
-                                    <a href="{{ route('admin.products.edit', $product->MaSP) }}" class="btn btn-sm btn-outline-primary" title="Sửa">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                    <form method="post" action="{{ route('admin.products.delete', $product->MaSP) }}" onsubmit="return confirm('Xóa sản phẩm này?')">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
-                                    </div>
-                                </td>
+                                <td class="text-end">@include('admin.records.actions', ['resource' => 'san-pham', 'id' => $product->MaSP])</td>
                             </tr>
                         @empty
                             <tr><td colspan="7" class="text-center py-4 text-muted">Không tìm thấy sản phẩm nào.</td></tr>
@@ -168,6 +144,9 @@
                 trong tổng số <strong>{{ $products->total() }}</strong> sản phẩm
             </p>
             <div>{{ $products->onEachSide(1)->links('pagination::bootstrap-5') }}</div>
+        </div>
+        <div class="mt-4">
+        @include('admin.partials.restock')
         </div>
     </div>
 @endsection

@@ -69,14 +69,14 @@
 
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body p-3">
-            <form method="get" action="{{ route('admin.bao-cao.doanh-thu') }}" class="row g-3 align-items-end">
+            <form id="revenue-date-filter" method="get" action="{{ route('admin.bao-cao.doanh-thu') }}" class="row g-3 align-items-end" novalidate>
                 <div class="col-md-3">
                     <label class="form-label fw-bold small text-uppercase text-muted">Từ ngày</label>
-                    <input type="date" name="from" value="{{ $from }}" class="form-control" />
+                    <input type="date" name="from" value="{{ old('from', $from) }}" class="form-control" required />
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold small text-uppercase text-muted">Đến ngày</label>
-                    <input type="date" name="to" value="{{ $to }}" class="form-control" />
+                    <input type="date" name="to" value="{{ old('to', $to) }}" class="form-control" required />
                 </div>
                 <div class="col-md-3">
                     <div class="form-check mb-2">
@@ -145,22 +145,7 @@
         </div>
     </div>
 
-    <div class="card shadow-sm mb-4">
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-white">
-            <h6 class="m-0 font-weight-bold text-primary">Biểu đồ biến động doanh thu</h6>
-        </div>
-        <div class="card-body">
-            <div class="chart-area" style="height: 320px;">
-                <canvas id="chartDay"></canvas>
-            </div>
-            @if($totalOrders == 0)
-                <div class="text-center text-muted mt-3">
-                    <i class="fas fa-inbox fa-3x mb-2"></i>
-                    <p>Chưa có dữ liệu phát sinh trong khoảng thời gian này.</p>
-                </div>
-            @endif
-        </div>
-    </div>
+    @include('admin.bao-cao.revenue-chart')
 
     <div class="row">
         <div class="col-lg-7 mb-4">
@@ -241,81 +226,54 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        try {
-            var labels = {!! $labelsByDay !!};
-            var data = {!! $dataByDay !!};
-
-            const formatCurrency = (v) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(v);
-
-            var ctxEl = document.getElementById('chartDay');
-            if (ctxEl) {
-                var ctx = ctxEl.getContext('2d');
-
-                if (Array.isArray(labels) && Array.isArray(data) && labels.length > 0 && data.length > 0) {
-                    var drawData = data.slice();
-                    var drawLabels = labels.slice();
-                    if (drawData.length === 1) {
-                        drawData.push(drawData[0]);
-                        drawLabels.push('');
-                    }
-
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: drawLabels,
-                            datasets: [{
-                                label: 'Doanh thu',
-                                data: drawData,
-                                borderColor: '#4e73df',
-                                backgroundColor: 'rgba(78, 115, 223, 0.05)',
-                                pointBackgroundColor: '#4e73df',
-                                pointBorderColor: '#fff',
-                                pointHoverBackgroundColor: '#fff',
-                                pointHoverBorderColor: '#4e73df',
-                                fill: true,
-                                tension: 0.3,
-                                pointRadius: 5,
-                                pointHoverRadius: 7,
-                                borderWidth: 2
-                            }]
-                        },
-                        options: {
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: { display: false },
-                                tooltip: {
-                                    backgroundColor: "rgb(255,255,255)",
-                                    bodyColor: "#858796",
-                                    titleColor: '#6e707e',
-                                    borderColor: '#dddfeb',
-                                    borderWidth: 1,
-                                    padding: 12,
-                                    displayColors: false,
-                                    callbacks: {
-                                        label: function(context) {
-                                            return 'Doanh thu: ' + formatCurrency(context.raw);
-                                        }
-                                    }
-                                }
-                            },
-                            layout: { padding: { left: 10, right: 25, top: 25, bottom: 0 } },
-                            scales: {
-                                x: { grid: { display: false, drawBorder: false }, ticks: { maxTicksLimit: 7 } },
-                                y: {
-                                    ticks: {
-                                        maxTicksLimit: 5,
-                                        padding: 10,
-                                        callback: (v) => formatCurrency(v)
-                                    },
-                                    grid: { color: "rgb(234, 236, 244)", drawBorder: false, borderDash: [2], zeroLineBorderDash: [2] }
-                                }
-                            }
-                        }
-                    });
-                }
+        const filter = document.getElementById('revenue-date-filter');
+        const fromInput = filter.elements.from;
+        const toInput = filter.elements.to;
+        const shiftDay = (value, offset) => {
+            if (!value) return '';
+            const day = new Date(value + 'T00:00:00Z');
+            day.setUTCDate(day.getUTCDate() + offset);
+            return day.toISOString().slice(0, 10);
+        };
+        const updateDateLimits = () => {
+            fromInput.max = shiftDay(toInput.value, -1);
+            toInput.min = shiftDay(fromInput.value, 1);
+        };
+        fromInput.addEventListener('change', updateDateLimits);
+        toInput.addEventListener('change', updateDateLimits);
+        updateDateLimits();
+        filter.addEventListener('submit', event => {
+            let message = '';
+            if (!fromInput.value || !toInput.value) message = 'Vui lòng chọn đầy đủ Từ ngày và Đến ngày.';
+            else if (fromInput.value >= toInput.value) message = 'Từ ngày phải nhỏ hơn Đến ngày.';
+            else if (!fromInput.validity.valid || !toInput.validity.valid) message = 'Khoảng ngày không hợp lệ.';
+            if (message) {
+                event.preventDefault();
+                window.showToast(message, 'error');
+                fromInput.focus();
             }
-        } catch (err) {
-            console.error('Chart Error:', err);
+        });
+        const rows = JSON.parse(document.getElementById('revenue-chart-data').textContent);
+        if (!rows.length) return;
+        const currency = value => new Intl.NumberFormat('vi-VN').format(value) + ' đ';
+        const compact = value => {
+            const n = Number(value);
+            const divisor = Math.abs(n) >= 1e9 ? 1e9 : (Math.abs(n) >= 1e6 ? 1e6 : (Math.abs(n) >= 1e3 ? 1e3 : 1));
+            return new Intl.NumberFormat('vi-VN', {maximumFractionDigits:1}).format(n / divisor) + ({1000000000:' tỷ',1000000:' triệu',1000:' nghìn',1:' đ'}[divisor]);
+        };
+        try {
+            if (typeof Chart === 'undefined') throw new Error('Chart unavailable');
+            new Chart(document.getElementById('chartDay'), {
+                type:'bar',
+                data:{labels:rows.map(row => row.label), datasets:[{label:'Doanh thu',data:rows.map(row => row.revenue),backgroundColor:'#688d9c',hoverBackgroundColor:'#334e68',borderRadius:5,maxBarThickness:42}]},
+                options:{responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},
+                    plugins:{legend:{display:false},tooltip:{backgroundColor:'#fff',titleColor:'#263548',bodyColor:'#43536a',borderColor:'#dce3ec',borderWidth:1,padding:14,displayColors:false,callbacks:{title:items => rows[items[0].dataIndex].range,label:context => ['Doanh thu: '+currency(context.raw),'Số đơn: '+rows[context.dataIndex].orders]}}},
+                    scales:{x:{grid:{display:false},border:{display:false},ticks:{color:'#667386',maxRotation:0,autoSkip:true,maxTicksLimit:12}},y:{beginAtZero:true,border:{display:false},title:{display:true,text:'Doanh thu (VNĐ)',color:'#667386'},ticks:{color:'#667386',maxTicksLimit:6,callback:compact},grid:{color:'#edf0f5'}}}
+                }
+            });
+        } catch (_) {
+            document.getElementById('revenue-chart-error').hidden = false;
+            document.getElementById('revenue-chart-table').open = true;
         }
     });
 </script>

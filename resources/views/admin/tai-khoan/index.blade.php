@@ -7,8 +7,8 @@
         <h1>Tài khoản</h1>
         <a href="{{ route('admin.tai-khoan.create') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Thêm mới</a>
     </div>
+@include('admin.partials.list-toolbar', ['resource' => 'tai-khoan'])
 
-    @if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
 
     <table class="table table-bordered table-hover bg-white">
         <thead class="table-light">
@@ -23,19 +23,13 @@
                 <td><span class="badge bg-{{ strtolower((string)$a->VaiTro) == 'admin' ? 'danger' : 'secondary' }}">{{ $a->VaiTro }}</span></td>
                 <td><span class="badge bg-{{ $a->TrangThai == 'active' ? 'success' : 'warning' }}">{{ $a->TrangThai }}</span></td>
                 <td>{{ $a->nguoiDung?->NgayTao ? $a->nguoiDung->NgayTao->format('d/m/Y') : '—' }}</td>
-                <td>
-                    <a href="{{ route('admin.tai-khoan.edit', $a->MaTK) }}" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen"></i></a>
-                    <form method="post" action="{{ route('admin.tai-khoan.destroy', $a->MaTK) }}" class="d-inline" onsubmit="return confirm('Xóa?')">
-                        @csrf @method('DELETE')
-                        <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
-                    </form>
-                </td>
+                <td class="text-end">@include('admin.records.actions', ['resource' => 'tai-khoan', 'id' => $a->MaTK])</td>
             </tr>
             @empty
             <tr><td colspan="7" class="text-center text-muted">Chưa có tài khoản</td></tr>
             @endforelse
         </tbody>
     </table>
-    {{ $accounts->onEachSide(1)->links() }}
+    @include('admin.partials.list-pagination', ['paginator' => $accounts])
 </div>
 @endsection

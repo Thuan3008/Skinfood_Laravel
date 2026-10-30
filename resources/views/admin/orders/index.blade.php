@@ -6,33 +6,9 @@
     <div class="container py-4">
         <h1 class="mb-4">Đơn hàng</h1>
 
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
         <div class="card shadow-sm mb-4">
             <div class="card-body">
-                <form method="get" action="{{ route('admin.orders') }}" class="row g-2">
-                    <div class="col-md-5">
-                        <input type="text" name="q" class="form-control" placeholder="Tìm theo mã ĐH, tên người nhận hoặc SĐT..." value="{{ $q ?? '' }}">
-                    </div>
-                    <div class="col-md-4">
-                        <select name="status" class="form-select" onchange="this.form.submit()">
-                            <option value="">-- Tất cả trạng thái --</option>
-                            <option value="Chưa thanh toán" @selected(($currentStatus ?? '') === 'Chưa thanh toán')>Chưa thanh toán</option>
-                            <option value="Đã chuyển khoản - chờ xác nhận" @selected(($currentStatus ?? '') === 'Đã chuyển khoản - chờ xác nhận')>Đã chuyển khoản - chờ xác nhận</option>
-                            <option value="Đã thanh toán" @selected(($currentStatus ?? '') === 'Đã thanh toán')>Đã thanh toán</option>
-                            <option value="Đã hủy" @selected(($currentStatus ?? '') === 'Đã hủy')>Đã hủy</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-secondary w-100" type="submit">
-                            <i class="fa-solid fa-search"></i> Lọc
-                        </button>
-                    </div>
-                </form>
+                @include('admin.partials.list-toolbar', ['resource' => 'don-hang'])
             </div>
         </div>
 
@@ -47,7 +23,7 @@
                             <th>Tổng tiền</th>
                             <th>Phương thức</th>
                             <th width="260">Thanh toán</th>
-                            <th class="text-end" width="90">Chi tiết</th>
+                            <th class="text-end" width="90">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,22 +40,9 @@
                                 <td><strong class="text-danger">{{ number_format($order->TongTien, 0, ',', '.') }} đ</strong></td>
                                 <td><span class="badge bg-light text-dark border">{{ $order->PhuongThucThanhToan ?? 'COD' }}</span></td>
                                 <td>
-                                    <form method="post" action="{{ route('admin.orders.update', $order->MaDH) }}">
-                                        @csrf
-                                        @method('put')
-                                        <select name="status" class="form-select form-select-sm {{ in_array($order->TrangThaiThanhToan, ['Đã thanh toán', 'Paid']) ? 'border-success text-success fw-bold' : ($order->TrangThaiThanhToan === 'Đã chuyển khoản - chờ xác nhận' ? 'border-primary text-primary fw-bold' : '') }}" onchange="this.form.submit()">
-                                            <option @selected($order->TrangThaiThanhToan === 'Chưa thanh toán')>Chưa thanh toán</option>
-                                            <option @selected($order->TrangThaiThanhToan === 'Đã chuyển khoản - chờ xác nhận')>Đã chuyển khoản - chờ xác nhận</option>
-                                            <option @selected($order->TrangThaiThanhToan === 'Đã thanh toán')>Đã thanh toán</option>
-                                            <option @selected($order->TrangThaiThanhToan === 'Đã hủy')>Đã hủy</option>
-                                        </select>
-                                    </form>
+                                    <span class="badge bg-secondary">{{ $order->TrangThaiThanhToan }}</span>
                                 </td>
-                                <td class="text-end">
-                                    <a href="{{ route('orders.show', $order->MaDH) }}" class="btn btn-sm btn-outline-primary" target="_blank">
-                                        Xem
-                                    </a>
-                                </td>
+                                <td class="text-end">@include('admin.records.actions', ['resource' => 'don-hang', 'id' => $order->MaDH])</td>
                             </tr>
                         @empty
                             <tr><td colspan="7" class="text-center py-4 text-muted">Không tìm thấy đơn hàng nào.</td></tr>
@@ -90,7 +53,7 @@
         </div>
 
         <div class="mt-3">
-            {{ $orders->onEachSide(1)->links() }}
+            @include('admin.partials.list-pagination', ['paginator' => $orders])
         </div>
     </div>
 @endsection

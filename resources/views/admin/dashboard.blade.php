@@ -8,24 +8,23 @@
 
 @section('content')
     <div class="container py-4 dashboard-container fade-in-up">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h2 class="fw-bold text-dark mb-1">👋 Xin chào, Quản trị viên!</h2>
-                <p class="text-muted">Tổng quan tình hình kinh doanh SkinFood.</p>
-            </div>
+        <div class="admin-dashboard-intro">
+            <div><h2>Tổng quan cửa hàng</h2><p>Theo dõi hoạt động kinh doanh và quản lý SkinFood.</p></div>
+            <a href="{{ route('admin.bao-cao.doanh-thu') }}" class="btn btn-outline-primary"><i class="fa-solid fa-chart-simple me-2" aria-hidden="true"></i>Xem báo cáo doanh thu</a>
         </div>
+
 
         <div class="row g-4 mb-4">
             <div class="col-xl-3 col-md-6">
                 <div class="card stat-card border-start-warning h-100">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon-circle bg-light-warning text-warning">
+                                <i class="fas fa-dollar-sign fa-lg"></i>
+                            </div>
                             <div>
                                 <div class="text-uppercase text-muted small fw-bold mb-1">Doanh Thu</div>
                                 <h3 class="text-warning fw-bold mb-0">{{ number_format($stats['revenue'], 0, ',', '.') }} đ</h3>
-                            </div>
-                            <div class="icon-circle bg-light-warning text-warning">
-                                <i class="fas fa-dollar-sign fa-lg"></i>
                             </div>
                         </div>
                     </div>
@@ -35,13 +34,13 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card stat-card border-start-success h-100">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon-circle bg-light-success text-success">
+                                <i class="fas fa-shopping-bag fa-lg"></i>
+                            </div>
                             <div>
                                 <div class="text-uppercase text-muted small fw-bold mb-1">Tổng Đơn Hàng</div>
                                 <h3 class="text-success fw-bold mb-0">{{ $stats['orders'] }}</h3>
-                            </div>
-                            <div class="icon-circle bg-light-success text-success">
-                                <i class="fas fa-shopping-bag fa-lg"></i>
                             </div>
                         </div>
                     </div>
@@ -51,13 +50,13 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card stat-card border-start-primary h-100">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon-circle bg-light-primary text-primary">
+                                <i class="fas fa-box-open fa-lg"></i>
+                            </div>
                             <div>
                                 <div class="text-uppercase text-muted small fw-bold mb-1">Tổng Sản Phẩm</div>
                                 <h3 class="text-primary fw-bold mb-0">{{ $stats['products'] }}</h3>
-                            </div>
-                            <div class="icon-circle bg-light-primary text-primary">
-                                <i class="fas fa-box-open fa-lg"></i>
                             </div>
                         </div>
                     </div>
@@ -67,13 +66,13 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card stat-card border-start-info h-100">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon-circle bg-light-info text-info">
+                                <i class="fas fa-star fa-lg"></i>
+                            </div>
                             <div>
                                 <div class="text-uppercase text-muted small fw-bold mb-1">Chờ Duyệt</div>
                                 <h3 class="text-info fw-bold mb-0">{{ $stats['reviews'] }}</h3>
-                            </div>
-                            <div class="icon-circle bg-light-info text-info">
-                                <i class="fas fa-star fa-lg"></i>
                             </div>
                         </div>
                     </div>
@@ -107,6 +106,7 @@
                 </div></div>
             </div>
         </div>
+
 
         <div class="row g-4">
             <div class="col-xl-8">
@@ -150,6 +150,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="mt-4">
+        @include('admin.partials.restock')
         </div>
     </div>
 @endsection

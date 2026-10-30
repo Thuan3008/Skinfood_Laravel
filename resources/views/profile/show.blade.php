@@ -4,19 +4,6 @@
 
 @section('content')
 <div class="container my-5">
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show mx-auto mb-4" style="max-width: 700px;" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show mx-auto mb-4" style="max-width: 700px;" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ $errors->first() }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
 
     @php
         $user = optional($account->nguoiDung);
@@ -160,6 +147,11 @@
             <hr class="my-4">
 
             <!-- Các nút hành động chính -->
+            @if(strtolower((string) auth()->user()->VaiTro) === 'admin')
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-dark w-100 py-2 mb-3">
+                    <i class="fas fa-arrow-left me-1"></i> Quay lại trang quản trị
+                </a>
+            @endif
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
                 <a href="{{ route('orders.index') }}" class="btn btn-info text-white w-100 py-2">
                     <i class="fas fa-shopping-bag me-1"></i> Đơn hàng của tôi
@@ -169,7 +161,7 @@
                     <i class="fas fa-edit me-1"></i> Chỉnh sửa
                 </button>
 
-                <a href="{{ route('logout') }}" class="btn btn-outline-danger w-100 py-2" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a href="{{ route('logout') }}" class="btn btn-outline-danger w-100 py-2" onclick="event.preventDefault(); document.getElementById('logout-form').requestSubmit();">
                     <i class="fas fa-sign-out-alt me-1"></i> Đăng xuất
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">

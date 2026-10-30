@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('legacy/CSS/HienSP.css') }}">
     <link rel="stylesheet" href="{{ asset('css/site-overrides.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('css/contact-notifications.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/contact-chat.css') }}">
     @stack('styles')
 </head>
 
@@ -65,15 +67,7 @@
 
                     <div class="f-header-top-icons d-flex align-items-center">
                         <!-- Thông báo phản hồi -->
-                        <div class="notif-container" style="position: relative; margin-right: 15px; cursor: pointer;">
-                            <a href="{{ auth()->check() ? route('contact.index') : route('login') }}" style="color: #212121; position: relative;" title="Thông báo phản hồi">
-                                <i class="fa-regular fa-bell" style="font-size: 20px;"></i>
-                            </a>
-                            <ul class="notif-dropdown-menu">
-                                <li class="notif-header p-2 bg-light fw-bold">Thông báo phản hồi</li>
-                                <li class="p-3 text-center text-muted">Không có thông báo mới</li>
-                            </ul>
-                        </div>
+                        @include('partials.contact-notifications')
 
                         <!-- Tài khoản -->
                         @if(auth()->check())
@@ -132,7 +126,7 @@
     @include('partials.menu')
 
     <!-- Main Content -->
-    <div class="container body-content">
+    <div class="container body-content @yield('content-class')">
         @yield('content')
         <hr />
 
@@ -184,18 +178,6 @@
                 </div>
             </div>
         </footer>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
-        <div id="cartToast" class="toast align-items-center text-bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body fs-6" id="cartToastBody">
-                    <i class="bi bi-check-circle-fill me-2"></i>Đã thêm sản phẩm vào giỏ hàng!
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
     </div>
 
     <!-- AI Floating Chatbox -->
@@ -262,13 +244,6 @@
     <script>
         $(document).ready(function () {
             // Toggle thông báo trên mobile
-            $('.notif-container > a').click(function (e) {
-                if ($(window).width() < 768) {
-                    e.preventDefault();
-                    $(this).next('.notif-dropdown-menu').toggle();
-                }
-            });
-
             // Ajax Thêm vào giỏ hàng: Màn hình ở im, không chuyển trang, cập nhật badge số lượng
             $(document).on('submit', 'form[action*="/gio-hang/"]', function (e) {
                 var form = $(this);
@@ -293,12 +268,7 @@
                         if (res && res.cartCount !== undefined) {
                             $('.f-header-top-icon-cart .badge').text(res.cartCount);
                         }
-                        $('#cartToastBody').html('<i class="bi bi-check-circle-fill me-2"></i>' + (res.message || 'Đã thêm sản phẩm vào giỏ hàng!'));
-                        var toastEl = document.getElementById('cartToast');
-                        if (toastEl && window.bootstrap) {
-                            var toast = new bootstrap.Toast(toastEl, { delay: 2500 });
-                            toast.show();
-                        }
+                        window.showToast(res.message || 'Đã thêm sản phẩm vào giỏ hàng!', 'success');
                     },
                     error: function (xhr) {
                         btn.prop('disabled', false).html(originalHtml);
@@ -306,7 +276,7 @@
                         if (xhr.responseJSON && xhr.responseJSON.message) {
                             msg = xhr.responseJSON.message;
                         }
-                        alert(msg);
+                        window.showToast(msg, 'error');
                     }
                 });
             });
@@ -334,6 +304,9 @@
             });
         });
     </script>
-    @stack('scripts')
+    @include('partials.notifications')
+@stack('scripts')
+    <script src="{{ asset('js/action-confirmation.js') }}"></script>
+<script src="{{ asset('js/table-alignment.js') }}"></script>
 </body>
 </html>

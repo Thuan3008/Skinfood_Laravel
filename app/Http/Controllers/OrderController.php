@@ -18,6 +18,9 @@ class OrderController extends Controller
         $query = DonHang::with('chiTiet.sanPham');
         if (strtolower((string) $request->user()->VaiTro) !== 'admin') $query->where('MaND', $request->user()->MaND);
         $order = $query->findOrFail($id);
+        if ((int) $order->MaND === (int) $request->user()->MaND && $order->TrangThaiThanhToan === 'Đã thanh toán' && !$order->DaDocThongBaoThanhToanLuc) {
+            $order->update(['DaDocThongBaoThanhToanLuc'=>now()]);
+        }
         return view('orders.show', compact('order'));
     }
 }

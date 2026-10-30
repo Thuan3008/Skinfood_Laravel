@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
     private function publicProducts()
     {
-        return SanPham::query()->where(fn ($query) => $query
+        return SanPham::query()->inStockFirst()->where(fn ($query) => $query
             ->whereNull('TrangThaiSanPham')
             ->orWhere(fn ($query) => $query
                 ->where('TrangThaiSanPham', 'not like', '%tạm%')
@@ -83,7 +83,7 @@ class HomeController extends Controller
     {
         $now = now();
         $categories = DanhMuc::withCount('sanPhams')
-            ->with(['sanPhams' => fn ($query) => $query->latest('MaSP')])
+            ->with(['sanPhams' => fn ($query) => $query->inStockFirst()->latest('MaSP')])
             ->orderBy('MaDM')
             ->get();
         $activePromotionIds = KhuyenMai::where('TrangThai', true)

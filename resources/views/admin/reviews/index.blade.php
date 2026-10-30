@@ -4,15 +4,12 @@
 
 @section('content')
     <div class="container py-4">
-        <h1>Đánh giá sản phẩm</h1>
+        <h1 class="mb-4">Đánh giá sản phẩm</h1>
+@include('admin.partials.list-toolbar', ['resource' => 'danh-gia'])
 
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
 
-        <table class="table align-middle">
+        <div class="card mt-4"><div class="table-responsive">
+        <table class="table align-middle mb-0">
             <thead>
                 <tr>
                     <th>Sản phẩm</th>
@@ -31,24 +28,13 @@
                         <td>{{ $review->NoiDung }}</td>
                         <td>{{ $review->Diem }}/5</td>
                         <td>{{ $review->DuocApprove ? 'Đã duyệt' : 'Chờ duyệt' }}</td>
-                        <td>
-                            @if(!$review->DuocApprove)
-                                <form class="d-inline" method="post" action="{{ route('admin.reviews.approve', $review->MaDG) }}">
-                                    @csrf
-                                    <button class="btn btn-sm btn-success">Duyệt</button>
-                                </form>
-                            @endif
-                            <form class="d-inline" method="post" action="{{ route('admin.reviews.delete', $review->MaDG) }}">
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-sm btn-outline-danger">Xóa</button>
-                            </form>
-                        </td>
+                        <td class="text-end">@include('admin.records.actions', ['resource' => 'danh-gia', 'id' => $review->MaDG])</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        </div></div>
 
-        {{ $reviews->onEachSide(1)->links() }}
+        @include('admin.partials.list-pagination', ['paginator' => $reviews])
     </div>
 @endsection

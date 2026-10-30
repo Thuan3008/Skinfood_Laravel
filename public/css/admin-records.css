@@ -1,0 +1,11 @@
+.admin-record-actions { display: inline-flex; align-items: center; flex-wrap: nowrap; gap: 6px; }
+.admin-record-actions form { margin: 0; display: inline-flex; }
+.admin-record-actions .btn { width: 34px; height: 32px; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
+#adminRecordFrame { display: block; width: 100%; height: 75vh; border: 0; background: #f5f6f8; }
+.admin-embedded .admin-sidebar, .admin-embedded .admin-topbar { display: none !important; }
+.admin-embedded .admin-main { margin-left: 0 !important; width: 100%; }
+.admin-embedded .admin-wrapper { display: block; }
+.admin-embedded .admin-content { padding: 20px; }
+.admin-embedded .admin-content > .container { max-width: none; padding: 0 !important; }
+.admin-embedded .form-control, .admin-embedded .form-select { max-width: none; }
+@media (max-width: 991px) { #adminRecordFrame { height: calc(100dvh - 70px); } }

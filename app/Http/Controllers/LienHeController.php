@@ -9,17 +9,8 @@ class LienHeController extends Controller
 {
     public function index(Request $request)
     {
-        $q = $request->get('q', '');
-        $query = LienHe::with('nguoiDung');
-        if ($q) {
-            $query->where(function ($sub) use ($q) {
-                $sub->where('HoTen', 'like', "%{$q}%")
-                    ->orWhere('Email', 'like', "%{$q}%")
-                    ->orWhere('NoiDung', 'like', "%{$q}%");
-            });
-        }
-        $contacts = $query->orderByDesc('NgayGui')->paginate(10)->withQueryString();
-        return view('admin.lien-he.index', compact('contacts', 'q'));
+        $contacts = \App\Support\AdminLists::paginate(LienHe::visibleInAdmin()->with('nguoiDung'), 'lien-he');
+        return view('admin.lien-he.index', ['contacts' => $contacts, 'q' => request('q', '')]);
     }
 
     public function details(int $id)
@@ -30,12 +21,10 @@ class LienHeController extends Controller
 
     public function reply(Request $request, int $id)
     {
-        $request->validate(['PhanHoi' => 'required|string']);
+        $request->validate(['PhanHoi' => 'required|string|max:5000']);
 
         try {
-            $contact = LienHe::findOrFail($id);
-            $contact->TrangThai = 'PHANHOI|' . trim($request->PhanHoi);
-            $contact->save();
+            \App\Services\ContactConversation::send($id,'admin',$request->PhanHoi);
             return redirect()->route('admin.lien-he.details', $id)->with('success', 'Đã gửi phản hồi thành công!');
         } catch (\Exception $e) {
             return back()->with('error', 'Lỗi: ' . $e->getMessage());
@@ -44,11 +33,6 @@ class LienHeController extends Controller
 
     public function destroy(int $id)
     {
-        try {
-            LienHe::destroy($id);
-            return redirect()->route('admin.lien-he.index')->with('success', 'Xóa liên hệ thành công!');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Lỗi khi xóa: ' . $e->getMessage());
-        }
+        return app(AdminRecordController::class)->hide(request(), 'lien-he', $id);
     }
 }

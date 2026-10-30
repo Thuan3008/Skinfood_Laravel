@@ -10,13 +10,8 @@
             <i class="fa-solid fa-plus me-1"></i> Tạo phiếu nhập
         </a>
     </div>
+@include('admin.partials.list-toolbar', ['resource' => 'phieu-nhap'])
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
 
     <div class="card shadow-sm">
         <div class="card-body p-0">
@@ -37,18 +32,7 @@
                             <td>{{ $p->nhaCungCap->TenNCC ?? '—' }}</td>
                             <td>{{ $p->NgayNhap ? \Carbon\Carbon::parse($p->NgayNhap)->format('d/m/Y') : '—' }}</td>
                             <td class="text-end fw-bold text-danger">{{ number_format($p->TongTien ?? 0, 0, ',', '.') }} đ</td>
-                            <td class="text-end">
-                                <a class="btn btn-sm btn-outline-info" href="{{ route('admin.phieu-nhap.show', $p->MaPN) }}">
-                                    <i class="fa-solid fa-eye me-1"></i> Chi tiết
-                                </a>
-                                <form class="d-inline" method="post" action="{{ route('admin.phieu-nhap.destroy', $p->MaPN) }}" onsubmit="return confirm('Xóa phiếu nhập này và hoàn tồn kho?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
+                            <td class="text-end">@include('admin.records.actions', ['resource' => 'phieu-nhap', 'id' => $p->MaPN])</td>
                         </tr>
                     @empty
                         <tr><td colspan="5" class="text-center py-4 text-muted">Chưa có phiếu nhập nào</td></tr>
@@ -59,7 +43,7 @@
     </div>
 
     <div class="mt-3">
-        {{ $phieus->onEachSide(1)->links() }}
+        @include('admin.partials.list-pagination', ['paginator' => $phieus])
     </div>
 </div>
 @endsection

@@ -6,10 +6,6 @@
     <h1>Thêm loại sản phẩm</h1>
     <a href="{{ route('admin.loai-sp.index') }}" class="btn btn-secondary mb-3"><i class="fa-solid fa-arrow-left"></i> Quay lại</a>
 
-    @if($errors->any())
-        <div class="alert alert-danger">{{ $errors->first() }}</div>
-    @endif
-
     <form method="post" action="{{ route('admin.loai-sp.store') }}">
         @csrf
         <div class="card col-md-6">

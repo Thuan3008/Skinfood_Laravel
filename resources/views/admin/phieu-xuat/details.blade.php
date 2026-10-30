@@ -14,6 +14,7 @@
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <div class="row">
+                <div class="col-12 mb-3"><span class="text-muted">Người nhận hàng:</span> <strong>{{ $phieu->NguoiNhanHang ?: '—' }}</strong><p class="mb-0 mt-1">Số điện thoại: {{ $phieu->SoDienThoaiNguoiNhan ?: '—' }}</p><p class="mb-0 mt-1">Địa chỉ: {{ $phieu->DiaChiNguoiNhan ?: '—' }}</p><p class="mb-0 mt-1">Ghi chú: {{ $phieu->GhiChu ?: '—' }}</p></div>
                 <div class="col-md-4">
                     <p class="mb-1 text-muted">Lý do xuất:</p>
                     <h5 class="fw-bold">{{ $phieu->LyDoXuat ?: 'Xuất bán / điều chuyển' }}</h5>

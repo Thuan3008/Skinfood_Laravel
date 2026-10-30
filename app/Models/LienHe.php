@@ -6,6 +6,6 @@ class LienHe extends LegacyModel
 {
     protected $table = 'LienHe';
     protected $primaryKey = 'MaLH';
-    protected $casts = ['NgayGui' => 'datetime'];
+    protected $casts = ['NgayGui' => 'datetime', 'NgayPhanHoi' => 'datetime', 'DaDocPhanHoiLuc' => 'datetime'];
     public function nguoiDung() { return $this->belongsTo(NguoiDung::class, 'MaND', 'MaND'); }
 }

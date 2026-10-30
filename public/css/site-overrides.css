@@ -350,6 +350,7 @@ input, select, textarea, button { font-family: inherit; }
 .storefront-product-filters { text-align: left; }
 .storefront-product-filters .form-label { display: block; margin-bottom: 5px; color: #59636e; font-size: .8rem; font-weight: 700; text-align: left; }
 .storefront-product-filters .form-control, .storefront-product-filters .form-select { width: 100% !important; max-width: none !important; min-height: 40px; text-align: left; }
+.body-content.product-list-content { margin-top: 0; }
 .storefront-catalog-page { max-width: 1320px; }
 .storefront-filter-sidebar { position: sticky; top: 18px; overflow: hidden; border: 1px solid #e4e8ed; border-radius: 14px; background: #fff; box-shadow: 0 5px 18px rgba(33, 43, 54, .06); text-align: left; }
 .storefront-filter-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 16px 17px; border-bottom: 1px solid #e8ebef; color: #17202a; font-size: .92rem; font-weight: 800; }

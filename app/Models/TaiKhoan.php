@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
 class TaiKhoan extends Authenticatable implements AuthenticatableContract
 {
+    use \App\Models\Concerns\VisibleInAdmin;
     protected $table = 'TaiKhoan';
     protected $primaryKey = 'MaTK';
     public $timestamps = false;

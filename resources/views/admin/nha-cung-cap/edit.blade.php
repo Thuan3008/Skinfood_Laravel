@@ -6,8 +6,6 @@
     <h1>Sửa nhà cung cấp</h1>
     <a href="{{ route('admin.nha-cung-cap.index') }}" class="btn btn-secondary mb-3"><i class="fa-solid fa-arrow-left"></i> Quay lại</a>
 
-    @if($errors->any())<div class="alert alert-danger">{{ $errors->first() }}</div>@endif
-
     <form method="post" action="{{ route('admin.nha-cung-cap.update', $supplier->MaNCC) }}">
         @csrf @method('PUT')
         <div class="card col-md-7">

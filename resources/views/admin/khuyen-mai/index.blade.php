@@ -10,13 +10,8 @@
             <i class="fa-solid fa-plus"></i> Tạo mới
         </a>
     </div>
+@include('admin.partials.list-toolbar', ['resource' => 'khuyen-mai'])
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
 
     <div class="card shadow-sm">
         <div class="card-body">
@@ -55,18 +50,7 @@
                                     <span class="badge bg-secondary">Tắt</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="{{ route('admin.khuyen-mai.edit', $promo->MaKM) }}" class="btn btn-sm btn-outline-primary">
-                                    <i class="fa-solid fa-pen"></i>
-                                </a>
-                                <form class="d-inline" method="post" action="{{ route('admin.khuyen-mai.destroy', $promo->MaKM) }}" onsubmit="return confirm('Bạn có chắc muốn xóa khuyến mãi này?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
+                            <td class="text-end">@include('admin.records.actions', ['resource' => 'khuyen-mai', 'id' => $promo->MaKM])</td>
                         </tr>
                     @empty
                         <tr>
@@ -79,7 +63,7 @@
     </div>
 
     @if(isset($promotions) && method_exists($promotions, 'links'))
-        {{ $promotions->onEachSide(1)->links() }}
+        @include('admin.partials.list-pagination', ['paginator' => $promotions])
     @endif
 </div>
 @endsection

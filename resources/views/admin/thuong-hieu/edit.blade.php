@@ -6,10 +6,6 @@
     <h1>Sửa thương hiệu</h1>
     <a href="{{ route('admin.thuong-hieu.index') }}" class="btn btn-secondary mb-3"><i class="fa-solid fa-arrow-left"></i> Quay lại</a>
 
-    @if($errors->any())
-        <div class="alert alert-danger">{{ $errors->first() }}</div>
-    @endif
-
     <form method="post" action="{{ route('admin.thuong-hieu.update', $brand->MaTH) }}">
         @csrf @method('PUT')
         <div class="card col-md-6">

@@ -205,12 +205,6 @@
                     <p>Nhập thông tin để bắt đầu hành trình mua sắm</p>
                 </div>
 
-                @if(session('error'))
-                    <div class="alert alert-danger py-2" style="font-size:0.85rem;">
-                        <i class="bi bi-exclamation-triangle-fill me-1"></i>{{ session('error') }}
-                    </div>
-                @endif
-
                 <div class="row g-2">
                     <div class="col-7">
                         <div class="form-floating">
@@ -352,5 +346,6 @@
             });
         })();
     </script>
+@include('partials.notifications')
 </body>
 </html>

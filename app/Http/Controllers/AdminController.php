@@ -18,6 +18,7 @@ class AdminController extends Controller
     public function dashboard() {
         $productCount = SanPham::count();
         return view('admin.dashboard', [
+            'restock' => $this->restockOverview(),
             'stats' => [
                 'products' => $productCount,
                 'orders' => DonHang::count(),
@@ -49,7 +50,7 @@ class AdminController extends Controller
         if ($minPrice !== null && $maxPrice !== null && $minPrice > $maxPrice) {
             [$minPrice, $maxPrice] = [$maxPrice, $minPrice];
         }
-        $query = SanPham::with(['danhMuc', 'thuongHieu', 'loai']);
+        $query = SanPham::visibleInAdmin()->with(['danhMuc', 'thuongHieu', 'loai']);
 
         if ($q !== '') {
             $query->where(function ($sub) use ($q) {
@@ -74,13 +75,26 @@ class AdminController extends Controller
         };
 
         return view('admin.products.index', [
-            'products' => $query->latest('MaSP')->paginate(10)->withQueryString(),
+            'restock' => $this->restockOverview(),
+            'products' => \App\Support\AdminLists::paginate($query, 'san-pham', false),
             'q' => $q,
             'categories' => DanhMuc::orderBy('TenDM')->get(['MaDM', 'TenDM']),
             'types' => LoaiSP::orderBy('TenLoai')->get(['MaLoai', 'MaDM', 'TenLoai']),
             'brands' => ThuongHieu::orderBy('TenTH')->get(['MaTH', 'TenTH']),
             'filters' => compact('categoryId', 'typeId', 'brandId', 'stock', 'status', 'minPrice', 'maxPrice'),
         ]);
+    }
+
+    private function restockOverview(): array
+    {
+        $query = SanPham::visibleInAdmin()
+            ->where(fn ($builder) => $builder->whereNull('TrangThaiSanPham')->orWhereNotIn('TrangThaiSanPham', ['Tạm ngưng', 'Ngừng kinh doanh']));
+        return [
+            'empty' => (clone $query)->whereRaw('COALESCE(SoLuongTon, 0) <= 0')->count(),
+            'low' => (clone $query)->whereBetween('SoLuongTon', [1, 10])->count(),
+            'products' => $query->whereRaw('COALESCE(SoLuongTon, 0) <= 10')
+                ->orderByRaw('COALESCE(SoLuongTon, 0) ASC')->orderBy('MaSP')->take(6)->get(),
+        ];
     }
 
     public function createProduct() {
@@ -147,52 +161,23 @@ class AdminController extends Controller
     }
 
     public function deleteProduct(int $id) {
-        $product = SanPham::findOrFail($id);
-        if (DB::table('ChiTietDonHangs')->where('MaSP', $id)->exists()) {
-            return back()->with('error', 'Không thể xóa sản phẩm đã có trong đơn hàng.');
-        }
-        try {
-            $product->delete();
-            return back()->with('success', 'Đã xóa sản phẩm.');
-        } catch (\Throwable $e) {
-            return back()->with('error', 'Không thể xóa sản phẩm vì đã có dữ liệu liên quan (phiếu nhập, phiếu xuất hoặc đánh giá).');
-        }
+        return app(AdminRecordController::class)->hide(request(), 'san-pham', $id);
     }
 
     public function orders(Request $request) {
-        $q = trim((string) $request->get('q', ''));
-        $status = trim((string) $request->get('status', ''));
-        $query = DonHang::with('nguoiDung');
-        if ($q !== '') {
-            $query->where(function ($sub) use ($q) {
-                $sub->where('MaDH', $q)
-                    ->orWhere('TenNguoiNhan', 'like', "%{$q}%")
-                    ->orWhere('SoDienThoai', 'like', "%{$q}%");
-            });
-        }
-        if ($status !== '') {
-            $query->where('TrangThaiThanhToan', $status);
-        }
-        return view('admin.orders.index', [
-            'orders' => $query->latest('NgayDat')->paginate(10)->withQueryString(),
-            'q' => $q,
-            'currentStatus' => $status,
-        ]);
+        $orders = \App\Support\AdminLists::paginate(DonHang::visibleInAdmin()->with('nguoiDung'), 'don-hang');
+        return view('admin.orders.index', compact('orders'));
     }
 
     public function updateOrder(Request $request, int $id) {
         $data = $request->validate(['status' => 'required|string|max:50']);
-        $order = DonHang::findOrFail($id);
-        $order->update([
-            'TrangThaiThanhToan' => $data['status'],
-            'NgayThanhToan' => $data['status'] === 'Đã thanh toán' ? now() : $order->NgayThanhToan,
-        ]);
+        app(\App\Services\OrderPaymentService::class)->updateStatus($id, $data['status']);
         return back()->with('success', 'Đã cập nhật trạng thái đơn hàng.');
     }
 
     public function reviews() {
         return view('admin.reviews.index', [
-            'reviews' => DanhGia::with(['sanPham', 'nguoiDung'])->latest('MaDG')->paginate(10)
+            'reviews' => \App\Support\AdminLists::paginate(DanhGia::visibleInAdmin()->with(['sanPham', 'nguoiDung']), 'danh-gia')
         ]);
     }
 
@@ -202,8 +187,7 @@ class AdminController extends Controller
     }
 
     public function deleteReview(int $id) {
-        DanhGia::findOrFail($id)->delete();
-        return back()->with('success', 'Đã xóa đánh giá.');
+        return app(AdminRecordController::class)->hide(request(), 'danh-gia', $id);
     }
 
     private function storeProductImage(Request $request): string

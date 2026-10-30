@@ -6,22 +6,6 @@
 <div class="container py-4">
     <h1 class="mb-4">{{ $product->exists ? 'Sửa sản phẩm' : 'Thêm sản phẩm' }}</h1>
 
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
-
     <form method="post" action="{{ $product->exists ? route('admin.products.update', $product->MaSP) : route('admin.products.store') }}" enctype="multipart/form-data">
         @csrf
         @if($product->exists)
@@ -111,12 +95,11 @@
                         <div class="mb-3">
                             <label class="form-label fw-bold">Tình trạng</label>
                             <select name="TrangThaiSanPham" class="form-select">
-                                <option value="">Mặc định (Còn hàng)</option>
-                                <option value="Còn hàng" @selected(old('TrangThaiSanPham', $product->TrangThaiSanPham) === 'Còn hàng')>Còn hàng</option>
-                                <option value="Hết hàng" @selected(old('TrangThaiSanPham', $product->TrangThaiSanPham) === 'Hết hàng')>Hết hàng</option>
+                                <option value="{{ ($product->SoLuongTon ?? 0) > 0 ? 'Còn hàng' : 'Hết hàng' }}" @selected(!in_array(old('TrangThaiSanPham', $product->TrangThaiSanPham), ['Tạm ngưng', 'Ngừng kinh doanh'], true))>{{ ($product->SoLuongTon ?? 0) > 0 ? 'Còn hàng' : 'Hết hàng' }} (theo tồn kho)</option>
                                 <option value="Tạm ngưng" @selected(old('TrangThaiSanPham', $product->TrangThaiSanPham) === 'Tạm ngưng')>Tạm ngưng</option>
                                 <option value="Ngừng kinh doanh" @selected(old('TrangThaiSanPham', $product->TrangThaiSanPham) === 'Ngừng kinh doanh')>Ngừng kinh doanh</option>
                             </select>
+                            <small class="text-muted">Còn hàng / Hết hàng tự động cập nhật theo tồn kho.</small>
                         </div>
                         @if($product->exists)
                             <div class="alert alert-info mb-0">

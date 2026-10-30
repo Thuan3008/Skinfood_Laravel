@@ -19,17 +19,6 @@
 
     <!-- Khung đăng nhập kính mờ -->
     <div class="login-wrapper">
-        @if(session('error'))
-            <div class="alert alert-danger text-center mb-3" style="width: 380px; margin: auto;">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
-            </div>
-        @endif
-
-        @if(session('success'))
-            <div class="alert alert-success text-center mb-3" style="width: 380px; margin: auto;">
-                <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-            </div>
-        @endif
 
         <form method="post" action="{{ route('login.authenticate') }}">
             @csrf
@@ -65,5 +54,6 @@
         </form>
     </div>
 
+@include('partials.notifications')
 </body>
 </html>

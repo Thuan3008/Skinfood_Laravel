@@ -11,8 +11,8 @@ class TaiKhoanController extends Controller
 {
     public function index()
     {
-        $accounts = TaiKhoan::with('nguoiDung')->orderByDesc('MaTK')->paginate(10);
-        return view('admin.tai-khoan.index', compact('accounts'));
+        $accounts = \App\Support\AdminLists::paginate(TaiKhoan::visibleInAdmin()->with('nguoiDung'), 'tai-khoan');
+        return view('admin.tai-khoan.index', ['accounts' => $accounts, 'q' => request('q', '')]);
     }
 
     public function create()
@@ -65,9 +65,6 @@ class TaiKhoanController extends Controller
 
     public function destroy(int $id)
     {
-        try {
-            TaiKhoan::destroy($id);
-            return redirect()->route('admin.tai-khoan.index')->with('success', 'Xóa tài khoản thành công!');
-        } catch (\Exception $e) { return back()->with('error', 'Không thể xóa tài khoản này vì còn có dữ liệu liên quan.'); }
+        return app(AdminRecordController::class)->hide(request(), 'tai-khoan', $id);
     }
 }

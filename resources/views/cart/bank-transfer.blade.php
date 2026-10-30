@@ -159,10 +159,11 @@
                 const response = await fetch(this.action, {method: 'POST', body: new FormData(this), credentials: 'same-origin'});
                 const result = await response.json();
                 if (!response.ok || !result.success) throw new Error(result.message || 'Không gửi được xác nhận.');
+                window.showToast(result.message || 'Đã báo shop kiểm tra giao dịch.');
                 button.textContent = 'Đã báo shop kiểm tra';
                 button.disabled = true;
             } catch (error) {
-                window.alert(error.message || 'Không gửi được xác nhận. Vui lòng thử lại.');
+                window.showToast(error.message || 'Không gửi được xác nhận. Vui lòng thử lại.', 'error');
             }
         });
 
