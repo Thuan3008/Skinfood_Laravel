@@ -179,5 +179,8 @@ class SkinFoodSeeder extends Seeder
             ['MaSP'=>11,'MaND'=>2],
             ['NoiDung'=>'Sản phẩm dùng tốt, đóng gói đẹp.','Diem'=>5,'NgayDanhGia'=>now(),'DuocApprove'=>true]
         );
+
+        // Apply the curated local images after the original demo catalog is created.
+        $this->call(ProductImageSeeder::class);
     }
 }

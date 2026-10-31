@@ -1,0 +1,338 @@
+[
+    {
+        "id": 8,
+        "name": "Dầu gội xả 2 trong 1 Herbal Care",
+        "image": "products/unique-2026/product-8.jpg",
+        "source": "https://thegioiskinfood.com/products/dau-goi-xa-2in-1-old-spice-2in1-shampoo-conditioner-650ml",
+        "source_title": "Dầu Gội Xả 2in 1 Old Spice 2In1 Shampoo & Conditioner 650ml",
+        "sha256": "d8118a79397f3feb05330605bc4feb6c1a466c251a0398cb4055a2c2e2196c6b"
+    },
+    {
+        "id": 26,
+        "name": "Toner trà xanh Innisfree Balancing 200ml",
+        "image": "products/unique-2026/product-26.jpg",
+        "source": "https://thegioiskinfood.com/products/nuoc-can-bang-colorkey-tra-xanh-ho-tro-kiem-dau-duong-am-da",
+        "source_title": "Nước Cân Bằng Colorkey Trà Xanh Luminous Green Tea Purifying Shake Toner 100ml",
+        "sha256": "b29a565fcf51808caef742950726dbe9f17009ebcbe2e1e7ccc3ab07a85074d5"
+    },
+    {
+        "id": 27,
+        "name": "Toner Glycolic 7% The Ordinary",
+        "image": "products/unique-2026/product-27.jpg",
+        "source": "https://thegioiskinfood.com/products/nuoc-duong-sang-da-tai-tao-da-ngan-ngua-lao-hoa-l-oreal-glycolic-bright-glowing-peeling-toner",
+        "source_title": "Nước Dưỡng L'oreal Hỗ Trợ Làm Sáng Da Glycolic - Bright Glowing Peeling Toner 128ml",
+        "sha256": "f1e82ae9964172c8f47af8816be67c2be6645780cc372971ea9f1a3322d14457"
+    },
+    {
+        "id": 28,
+        "name": "Mặt nạ đất sét thanh lọc lỗ chân lông",
+        "image": "products/unique-2026/product-28.jpg",
+        "source": "https://thegioiskinfood.com/products/mat-na-dat-set-thu-nho-lo-chan-long-giam-mun-dau-den-beplain-mung-bean-pore-clay-mask-120ml",
+        "source_title": "Mặt Nạ Đất Sét Beplain Thu Nhỏ Lỗ Chân Lông, Giảm Mụn Đầu Đen Mung Bean Pore Clay Mask 120ml",
+        "sha256": "2c5cb4d4bd7b4489c00e5957b860f7d580d0d555e6ad0a10fc8e7d044d41df07"
+    },
+    {
+        "id": 29,
+        "name": "Mặt nạ giấy Ceramide phục hồi da",
+        "image": "products/unique-2026/product-29.jpg",
+        "source": "https://thegioiskinfood.com/products/mat-na-sur-medic-duong-am-lam-diu-ho-tro-duong-sang-phuc-hoi-da-28g",
+        "source_title": "Mặt Nạ Sur.Medic+ Dưỡng Ẩm, Làm Dịu, Hỗ Trợ Dưỡng Sáng, Phục Hồi Da Derma Infusion Mask 28g",
+        "sha256": "be8af612abc1a3626711381dd424956b40b3ad7cb3e183d2a0a815e08985a39f"
+    },
+    {
+        "id": 30,
+        "name": "Serum Niacinamide 10% kiểm soát dầu",
+        "image": "products/unique-2026/product-30.jpg",
+        "source": "https://thegioiskinfood.com/products/serum-angel-s-liquid-ho-tro-duong-sang-kiem-soat-dau-45ml",
+        "source_title": "Serum  Angel's Liquid Hỗ Trợ Dưỡng Sáng, Kiểm Soát DầuGlutathione Plus Niacinamide Cica Ampoule 45ml",
+        "sha256": "e853bd32a01739f77e616985a28b1bbb76a1567b35638dea27ee1a1432fef93b"
+    },
+    {
+        "id": 31,
+        "name": "Serum Retinol 0.5% tái tạo da ban đêm",
+        "image": "products/unique-2026/product-31.jpg",
+        "source": "https://thegioiskinfood.com/products/serum-olay-giup-mo-nep-nhan-ban-dem-regenerist-retinol-24-night-serum",
+        "source_title": "Serum Olay Giúp Mờ Nếp Nhăn Ban Đêm Regenerist Retinol 24 Night Serum 30ml",
+        "sha256": "718daf10e57e451fd5d0a3490acddb91f1dad572a34eafc24095f83557afec59"
+    },
+    {
+        "id": 32,
+        "name": "Kem dưỡng Hyaluronic phục hồi 72 giờ",
+        "image": "products/unique-2026/product-32.jpg",
+        "source": "https://thegioiskinfood.com/products/kem-duong-cap-am-dang-gel-jumiso-waterfull-hyaluronic-acid-cream",
+        "source_title": "Kem Dưỡng Jumiso Cấp Ẩm Dạng Gel Waterfull Hyaluronic Acid Cream 100ml",
+        "sha256": "063709c577685f4edb754ef00f158bbe36f13b1e926ded6a65eb5f94e9950eb6"
+    },
+    {
+        "id": 33,
+        "name": "Kem chống nắng Sensitive SPF50 PA++++",
+        "image": "products/unique-2026/product-33.png",
+        "source": "https://thegioiskinfood.com/products/kem-chong-nang-duong-am-2in1-cho-da-thien-dau-nhay-cam-cetaphil-daily-defense-cream-spf50-uvb-uva",
+        "source_title": "Kem Chống Nắng Cetaphil Dưỡng Ẩm 2in1 Cho Da Thiên Dầu, Nhạy Cảm Daily Defense Cream SPF50 UVB+UVA 50g",
+        "sha256": "9adebab6c0ca9f045f9a0a90561de63cdc95fe76f94756afc289c3e81f6c46c5"
+    },
+    {
+        "id": 40,
+        "name": "Bộ cọ trang điểm chuyên nghiệp 12 cây",
+        "image": "products/unique-2026/product-40.jpg",
+        "source": "https://thegioiskinfood.com/products/bo-co-trang-diem-ca-nhan-vacosi-mars-mission-brush-set-14-cay-bc36",
+        "source_title": "Bộ Cọ Trang Điểm Cá Nhân Vacosi Mars Mission Brush Set 14 Cây & Bóp Da Cam - BC36",
+        "sha256": "1392c8ccc3f9a7ebbf8ea1cb797040cda92cf84023c5b1305b065f4d3ef805d2"
+    },
+    {
+        "id": 41,
+        "name": "Máy rửa mặt silicone Sonic Mini",
+        "image": "products/unique-2026/product-41.jpg",
+        "source": "https://thegioiskinfood.com/products/may-rua-mat-massage-tich-hop-lieu-phap-anh-sang-nhiet-halio-multi-task-cleansing-massaging-device",
+        "source_title": "Máy Rửa Mặt Massage Halio Tích Hợp Liệu Pháp Ánh Sáng & Nhiệt Multi-task Cleansing & Massaging Device",
+        "sha256": "f53c7c02ebe8cb7771da5b495ddcfa4f58147d540c9f796333f6197f06bfd995"
+    },
+    {
+        "id": 45,
+        "name": "Dầu xả Keratin phục hồi tóc hư tổn",
+        "image": "products/unique-2026/product-45.jpg",
+        "source": "https://thegioiskinfood.com/products/tresemme-keratin-smooth-conditioner-620g",
+        "source_title": "Dầu Xả TRESemmé Vào Nếp & Suôn Mượt Keratin Smooth Conditioner 620g",
+        "sha256": "002dd8beef3533c1a84ddbb4d7d70b813f3f90b002f78331e0ebe01b288e9cd8"
+    },
+    {
+        "id": 46,
+        "name": "Dầu tẩy trang Squalane dịu nhẹ 200ml",
+        "image": "products/unique-2026/product-46.jpg",
+        "source": "https://thegioiskinfood.com/products/dau-tay-trang-zakka-naturals-lam-sach-sau-100ml",
+        "source_title": "Dầu Tẩy Trang Zakka Naturals Làm Sạch Sâu Camellia Soothing & Antioxidant Deep Cleansing Oil 100ml",
+        "sha256": "931f8df1a0d04963a24070edb521e6282a48880834bf00d93ad24ef3805faf7e"
+    },
+    {
+        "id": 47,
+        "name": "Nước tẩy trang Micellar da nhạy cảm 400ml",
+        "image": "products/unique-2026/product-47.png",
+        "source": "https://thegioiskinfood.com/products/nuoc-tay-trang-cerave-sach-sau-cap-am-bao-ve-hang-rao-da-400ml",
+        "source_title": "Nước Tẩy Trang Cerave Sạch Sâu, Cấp Ẩm Developed With Dermatologists Hydrating Micellar Water 400ml",
+        "sha256": "3576a8cb6e406502b7f8a9ac35d6ba2ebae00b163f00d0dacce73aa3aacd5e01"
+    },
+    {
+        "id": 48,
+        "name": "Sữa rửa mặt Salicylic Acid 2% cho da dầu",
+        "image": "products/unique-2026/product-48.png",
+        "source": "https://thegioiskinfood.com/products/gel-rua-mat-cetaphil-gentle-exfoliating-sa-cleanser",
+        "source_title": "Gel Rửa Mặt Cetaphil Làm Sạch Dầu Nhờn, Cho Da Dầu, Mụn, Nhạy Cảm Gentle Exfoliating SA Cleanser",
+        "sha256": "efb3db1ce64d919d2ebf0d2e285bffc3f419bfd94440b8ba7ff000ab5a424899"
+    },
+    {
+        "id": 49,
+        "name": "Serum Vitamin C 15% dưỡng sáng 30ml",
+        "image": "11.jpg",
+        "source": "Existing local image",
+        "source_title": "Reused unused local image",
+        "sha256": "dd979bf0d23e861e8d35219d6714c5f3c46679cfc62d5f8b45bc7cbf2da4da33"
+    },
+    {
+        "id": 50,
+        "name": "Serum Peptide phục hồi đàn hồi 30ml",
+        "image": "products/unique-2026/product-50.jpg",
+        "source": "https://thegioiskinfood.com/products/serum-sur-medic-super-peptide-100-triple-collagen-lifting-serum-50ml",
+        "source_title": "Serum Sur.Medic+ Hỗ Trợ Phục Hồi Da Super Peptide 100™ Triple Collagen Lifting Serum 50ml",
+        "sha256": "c858f717cd7bb32309ef28ab338bb6e413ac71fbb2ab37bb67310787997259f6"
+    },
+    {
+        "id": 51,
+        "name": "Kem mắt Caffeine giảm bọng 20ml",
+        "image": "products/unique-2026/product-51.jpg",
+        "source": "https://thegioiskinfood.com/products/himalaya-under-eye-cream-15ml",
+        "source_title": "Kem Dưỡng Mắt Himalaya Hỗ Trợ Mờ Quầng Thâm, Cải Thiện Bọng Mắt Under Eye Cream 15ml",
+        "sha256": "429f727cfcc876d9c3f9820138bcf732050048d01031a88ce7a276e659c4066c"
+    },
+    {
+        "id": 52,
+        "name": "Kem dưỡng Cica Panthenol phục hồi da 50ml",
+        "image": "products/unique-2026/product-52.jpg",
+        "source": "https://thegioiskinfood.com/products/kem-duong-cap-am-ho-tro-phuc-hoi-da-some-by-mi-beta-panthenol-repair-cream-50ml",
+        "source_title": "Kem Dưỡng Some By Mi Cấp Ẩm, Hỗ Trợ Phục Hồi Da Beta Panthenol Repair Cream 50ml",
+        "sha256": "bec6d89c3bff6eee06333814dbc87f3139345ed6f6c811a22cb1b99a2d770161"
+    },
+    {
+        "id": 53,
+        "name": "Kem chống nắng Tone Up SPF50+ PA++++",
+        "image": "products/unique-2026/product-53.png",
+        "source": "https://thegioiskinfood.com/products/kem-chong-nang-d-alba-nang-tong-tim-waterfull-tone-up-sun-cream-purple",
+        "source_title": "Kem Chống Nắng D'Alba Nâng Tông, Hiệu Chỉnh Sắc Da Waterfull Tone-Up Sun Cream_Purple SPF50+ PA++++ 50ml",
+        "sha256": "a3a57a70fe3422bca3c59a8f751e78cf08fba0ef5c00f2df78d9701c86cdd226"
+    },
+    {
+        "id": 54,
+        "name": "Tinh chất BHA 2% làm sạch lỗ chân lông",
+        "image": "products/unique-2026/product-54.jpg",
+        "source": "https://thegioiskinfood.com/products/dung-dich-tay-te-bao-chet-drceutics-basic-bha-2-in-alcohol",
+        "source_title": "Dung Dịch Tẩy Tế Bào Chết Da DrCeutics Nền Cồn Basic BHA 2% In Alcohol",
+        "sha256": "592517d6cf7cf81a09e7029cf224e43c15b607f02be9452948c10928ad7dea50"
+    },
+    {
+        "id": 55,
+        "name": "Mặt nạ ngủ Hyaluronic cấp nước 60ml",
+        "image": "products/unique-2026/product-55.png",
+        "source": "https://thegioiskinfood.com/products/mat-na-ngu-belif-super-knights-multi-vitamin-mask-75ml",
+        "source_title": "Mặt Nạ Ngủ Belif Dưỡng Ẩm & Hỗ Trợ Phục Hồi Da Chuyên Sâu Super Knights - Multi Vitamin Mask 75ml",
+        "sha256": "ff61a8158c29d6b799db15a9a4599f091f6e2cb110c21a4ab210fca962688bac"
+    },
+    {
+        "id": 56,
+        "name": "Son dưỡng Ceramide không màu",
+        "image": "products/unique-2026/product-56.jpg",
+        "source": "https://thegioiskinfood.com/products/son-duong-moi-khong-mau-cobote-natural-lip-balm-5g",
+        "source_title": "Son Dưỡng Môi Không Màu COBOTÉ Natural Lip Balm 5g",
+        "sha256": "c0defc3f7678626097e6718b5cd7ea28c50906a7750576ae653072272e5f2fa7"
+    },
+    {
+        "id": 57,
+        "name": "Miếng dán mụn Hydrocolloid ban đêm 36 miếng",
+        "image": "products/unique-2026/product-57.jpg",
+        "source": "https://thegioiskinfood.com/products/mieng-dan-mun-dung-cho-ngay-va-dem-derma-angel-acne-patch-original",
+        "source_title": "Miếng Dán Mụn Dùng Cho Ngày Và Đêm Derma Angel Acne Patch Original",
+        "sha256": "84975054b01a8817899193197a5f4b8ae222c187e0eca912c5a3ec1766b462b1"
+    },
+    {
+        "id": 58,
+        "name": "Cushion Glow Fit SPF50+ PA+++",
+        "image": "products/unique-2026/product-58.jpg",
+        "source": "https://thegioiskinfood.com/products/phan-nuoc-luvum-cap-am-cang-bong-da-moisture-glow-cushion-spf50-pa",
+        "source_title": "Phấn Nước Luvum Cấp Ẩm Căng Bóng Da Moisture Glow Cushion SPF50+ PA+++ 15g",
+        "sha256": "2336bcf86f1afc00a6a9659d95166e3dfd1b2159e55abdae8874c3e1814ba099"
+    },
+    {
+        "id": 59,
+        "name": "Kem nền Matte Cover 24H",
+        "image": "products/unique-2026/product-59.jpg",
+        "source": "https://thegioiskinfood.com/products/kem-nen-banila-co-min-li-che-phu-cao-covericious-power-fit-foundation",
+        "source_title": "Kem Nền Banila Co Mịn Lì Che Phủ Cao Covericious Power Fit Foundation SPF45 PA++ 14ml",
+        "sha256": "26ca4a169c7dadd3f939c09e42692f7049bce301f7765f1d5d6c100fec361f72"
+    },
+    {
+        "id": 60,
+        "name": "Che khuyết điểm Fit Me Concealer",
+        "image": "products/unique-2026/product-60.jpg",
+        "source": "https://thegioiskinfood.com/products/maybelline-fit-me-concealer-with-chamomile-extract",
+        "source_title": "Kem Che Khuyết Điểm Maybelline Mịn Lì Fit Me Concealer With Chamomile Extract 6.8ml",
+        "sha256": "687791124cae7c65bebd0d36414b965790767c654873883b3190e2c9de80f5aa"
+    },
+    {
+        "id": 61,
+        "name": "Phấn phủ bột kiềm dầu Air Blur",
+        "image": "products/unique-2026/product-61.jpg",
+        "source": "https://thegioiskinfood.com/products/phan-phu-nen-murmurmuse-mong-nhe-che-phu-tot-kiem-dau-8g",
+        "source_title": "Phấn Phủ Nén Murmurmuse Mỏng Nhẹ, Che Phủ Tốt, Kiềm Dầu Light and Transparent Pressed Powder 8g",
+        "sha256": "8c9451572b7851c0a1bbc61509dadda53844ef0b0fd352ea7cb6e2003f2628d1"
+    },
+    {
+        "id": 62,
+        "name": "Má hồng kem Juicy Cheek",
+        "image": "products/unique-2026/product-62.jpg",
+        "source": "https://thegioiskinfood.com/products/ma-hong-kem-murmurmuse-cang-bong-radiance-cream-blush-2-2g",
+        "source_title": "Má Hồng Kem Murmurmuse Căng Bóng Radiance Cream Blush 2.2g",
+        "sha256": "7518e40ce01daf35645c6d026452a27cccdf7c11ae1751b15246fe54f29a74da"
+    },
+    {
+        "id": 63,
+        "name": "Mascara Lash Lift chống trôi",
+        "image": "products/unique-2026/product-63.jpg",
+        "source": "https://thegioiskinfood.com/products/mascara-judydoll-day-cong-mi-no-drooping-volume-mascara-black-7g",
+        "source_title": "Mascara Judydoll Dày & Cong Mi No-Drooping Volume Mascara Black 7g",
+        "sha256": "9e9645e28dbae9063be848dcff3b9836055169fbe277a3b9485366fecae10da3"
+    },
+    {
+        "id": 64,
+        "name": "Chì kẻ mày Slim Brow 1.5mm",
+        "image": "products/unique-2026/product-64.jpg",
+        "source": "https://thegioiskinfood.com/products/chi-ke-may-hai-dau-silkygirl-lau-troi-3d-ultra-fine-brow-liner",
+        "source_title": "Chì Kẻ Mày Hai Đầu Silkygirl Lâu Trôi 3D Ultra Fine Brow Liner 0.1g",
+        "sha256": "83d1bba239f291d32c2080cd57cfbb496ca3040517b1e439c582e6e95efa18e8"
+    },
+    {
+        "id": 65,
+        "name": "Tẩy tế bào chết da đầu Muối biển",
+        "image": "products/unique-2026/product-65.png",
+        "source": "https://thegioiskinfood.com/products/gift-muoi-tay-te-bao-chet-da-dau-aromatica-rosemary-scalp-scrub-30g-tri-gia-85k",
+        "source_title": "[Gift] Muối Tẩy Tế Bào Chết Da Đầu Aromatica Rosemary Scalp Scrub 30g - Trị Giá 85k",
+        "sha256": "4b565f2f8b869d93f9e906f2a11c22ae07c6232aa000bc3d36987b57a848b99f"
+    },
+    {
+        "id": 66,
+        "name": "Mặt nạ tóc Argan phục hồi chuyên sâu",
+        "image": "products/unique-2026/product-66.jpg",
+        "source": "https://thegioiskinfood.com/products/kem-u-toc-fino-premium-touch",
+        "source_title": "Kem Ủ Tóc Fino Dưỡng Ẩm, Hỗ Trợ Cải Thiện Tóc Hư Tổn Premium Touch 230g",
+        "sha256": "4eabe069fd3433d232b7ec40ee90b66c343ca324297ef62f4c32944b49ce5983"
+    },
+    {
+        "id": 67,
+        "name": "Xịt bảo vệ tóc trước nhiệt 200ml",
+        "image": "products/unique-2026/product-67.jpg",
+        "source": "https://thegioiskinfood.com/products/xit-duong-toc-grace-and-glow-ngan-ngua-toc-kho-xo",
+        "source_title": "Xịt Dưỡng Tóc Hương Nước Hoa Grace And Glow Hair Mist 100ml",
+        "sha256": "b5de49719541900fce8e27be75a72ed36032beef4b298a32111bfe383d3c97c0"
+    },
+    {
+        "id": 68,
+        "name": "Dầu dưỡng tóc Camellia bóng mượt",
+        "image": "products/unique-2026/product-68.jpg",
+        "source": "https://thegioiskinfood.com/products/nuoc-duong-toc-cocoon-ho-tro-giam-gay-rung-va-lam-mem-toc-tinh-dau-buoi-pomelo-hair-tonic-140ml",
+        "source_title": "Nước Dưỡng Tóc Cocoon Hỗ Trợ Giảm Gãy Rụng Và Làm Mềm Tóc Tinh Dầu Bưởi Pomelo Hair Tonic 140ml",
+        "sha256": "ebd210554bae3823995c7b84a97795f8c4c1352db959fd7c96b0074b3ad2614b"
+    },
+    {
+        "id": 69,
+        "name": "Kem dưỡng tay Shea Butter 75ml",
+        "image": "14.jpg",
+        "source": "Existing local image",
+        "source_title": "Reused unused local image",
+        "sha256": "0eecfe868bdca22a7c50e54d3c9d229e7bcfbbca5480e88f94049afab945c746"
+    },
+    {
+        "id": 70,
+        "name": "Lăn khử mùi Niacinamide Bright 50ml",
+        "image": "products/unique-2026/product-70.jpg",
+        "source": "https://thegioiskinfood.com/products/lan-ngan-mui-nivea-duong-sang-mem-min-derma-control",
+        "source_title": "Lăn Ngăn Mùi Nivea Dưỡng Sáng Mềm Mịn Derma Control Restore Roll On 50ml",
+        "sha256": "4761ebd26cd0b1e39e654c407584d214d9f3756a76a78df69c0dc8415fe77044"
+    },
+    {
+        "id": 71,
+        "name": "Dầu tắm hạnh nhân cho da khô 400ml",
+        "image": "products/unique-2026/product-71.jpg",
+        "source": "https://thegioiskinfood.com/products/dau-tam-bioderma-lam-sach-lam-diu-cho-da-kho-nhay-cam",
+        "source_title": "Dầu Tắm Bioderma Làm Sạch, Làm Dịu Cho Da Khô, Nhạy Cảm Atoderm Huile De Douche 1000ml",
+        "sha256": "9ae5f9ef854b06078810c75554a79de270d458ebc0aa36e74ce3eb3b0ea04183"
+    },
+    {
+        "id": 72,
+        "name": "Kem gót chân Urea 10% phục hồi nứt nẻ",
+        "image": "20.jpg",
+        "source": "Existing local image",
+        "source_title": "Reused unused local image",
+        "sha256": "009f85b901050e8f10e50729e05bfe5bcf38d00def6e467a59ea001710042e6b"
+    },
+    {
+        "id": 73,
+        "name": "Nước hoa Unisex Citrus Musk EDT",
+        "image": "nuochoa_thom.jpg",
+        "source": "Existing local image",
+        "source_title": "Reused unused local image",
+        "sha256": "211a0d14e2905149de0d2009e1ddb075da1a162f0465708a8f846400d1383835"
+    },
+    {
+        "id": 74,
+        "name": "Nước hoa nam Ocean Cedar EDP",
+        "image": "products/unique-2026/product-74.jpg",
+        "source": "https://thegioiskinfood.com/products/nuoc-hoa-nam-nu-armaf-club-de-nuit",
+        "source_title": "Nước Hoa Nam & Nữ Armaf",
+        "sha256": "0c110acdb5b6585e03901d3c245cb0820c0719b7316d9ac75052d4ec1eba4b38"
+    },
+    {
+        "id": 75,
+        "name": "Kẹp bấm mi cong tự nhiên",
+        "image": "products/unique-2026/product-75.jpg",
+        "source": "https://thegioiskinfood.com/products/bam-mi-vang-tim-vacosi-pro-classic-curler-violet-gold-bm08",
+        "source_title": "Bấm Mi Vàng Tím Vacosi Pro Classic Curler Violet Gold - BM08",
+        "sha256": "4273839a71a810df2dc3b3903daa9268b1363194c98fd4460af6d152c697823a"
+    }
+]

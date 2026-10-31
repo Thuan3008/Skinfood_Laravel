@@ -1,0 +1,377 @@
+[
+    {
+        "MaSP": 1,
+        "TenSP": "Dầu gội Pond’s Phục hồi hư tổn",
+        "HinhAnh": "dau_goi/1.jpg"
+    },
+    {
+        "MaSP": 2,
+        "TenSP": "Dầu gội Gừng Thảo mộc Ngăn rụng tóc",
+        "HinhAnh": "dau_goi/2.jpg"
+    },
+    {
+        "MaSP": 3,
+        "TenSP": "Dầu gội Dược liệu cổ truyền Dáng Diễm",
+        "HinhAnh": "dau_goi/3.jpg"
+    },
+    {
+        "MaSP": 4,
+        "TenSP": "Bộ đôi Gội Xả Thảo mộc Wings Up",
+        "HinhAnh": "dau_goi/4.jpg"
+    },
+    {
+        "MaSP": 5,
+        "TenSP": "Dầu gội nước hoa I.D Salon Grade",
+        "HinhAnh": "dau_goi/5.jpg"
+    },
+    {
+        "MaSP": 6,
+        "TenSP": "Dầu gội phủ bạc thảo dược",
+        "HinhAnh": "dau_goi/6.jpg"
+    },
+    {
+        "MaSP": 7,
+        "TenSP": "Dầu gội cốt Dừa tươi",
+        "HinhAnh": "dau_goi/7.jpg"
+    },
+    {
+        "MaSP": 8,
+        "TenSP": "Dầu gội xả 2 trong 1 Herbal Care",
+        "HinhAnh": "dau_goi/8.jpg"
+    },
+    {
+        "MaSP": 9,
+        "TenSP": "Dầu gội Bưởi Cocoon",
+        "HinhAnh": "dau_goi/9.jpg"
+    },
+    {
+        "MaSP": 10,
+        "TenSP": "Dầu gội Kelina Bạch quả & Trà xanh",
+        "HinhAnh": "dau_goi/10.jpg"
+    },
+    {
+        "MaSP": 11,
+        "TenSP": "Kem chống nắng phục hồi Emmié",
+        "HinhAnh": "Kem/1.jpg"
+    },
+    {
+        "MaSP": 12,
+        "TenSP": "Tinh chất Vitamin C tươi dưỡng trắng",
+        "HinhAnh": "Kem/2.jpg"
+    },
+    {
+        "MaSP": 13,
+        "TenSP": "Kem dưỡng ẩm 5X Ceramide",
+        "HinhAnh": "Kem/3.jpg"
+    },
+    {
+        "MaSP": 14,
+        "TenSP": "Gel dưỡng ẩm Pond’s Hydra Active",
+        "HinhAnh": "Kem/4.jpg"
+    },
+    {
+        "MaSP": 15,
+        "TenSP": "Kem dưỡng ẩm Cetaphil",
+        "HinhAnh": "Kem/5.jpg"
+    },
+    {
+        "MaSP": 16,
+        "TenSP": "Serum La Roche-Posay Hyalu B5",
+        "HinhAnh": "Kem/6.jpg"
+    },
+    {
+        "MaSP": 17,
+        "TenSP": "Serum Balance Vitamin C",
+        "HinhAnh": "Kem/7.jpg"
+    },
+    {
+        "MaSP": 18,
+        "TenSP": "Son Kem Lì Lilybyred Mood Liar",
+        "HinhAnh": "Son_Moi/1.jpg"
+    },
+    {
+        "MaSP": 19,
+        "TenSP": "Son Romand Milk Tea Velvet Tint",
+        "HinhAnh": "Son_Moi/2.jpg"
+    },
+    {
+        "MaSP": 20,
+        "TenSP": "Son Romand Zero Velvet Tint",
+        "HinhAnh": "Son_Moi/3.jpg"
+    },
+    {
+        "MaSP": 21,
+        "TenSP": "Son Peripera Ink The Velvet",
+        "HinhAnh": "Son_Moi/4.jpg"
+    },
+    {
+        "MaSP": 22,
+        "TenSP": "Son Bóng Black Rouge Half N Half",
+        "HinhAnh": "Son_Moi/5.jpg"
+    },
+    {
+        "MaSP": 23,
+        "TenSP": "Sữa rửa mặt trà xanh",
+        "HinhAnh": "srm_traxanh.jpg"
+    },
+    {
+        "MaSP": 24,
+        "TenSP": "Kem chống nắng dưỡng ẩm",
+        "HinhAnh": "kem_chong_nang.jpg"
+    },
+    {
+        "MaSP": 25,
+        "TenSP": "Sữa tắm dưỡng ẩm",
+        "HinhAnh": "sua_tam.jpg"
+    },
+    {
+        "MaSP": 26,
+        "TenSP": "Toner trà xanh Innisfree Balancing 200ml",
+        "HinhAnh": "products/new/skincare-set.jpg"
+    },
+    {
+        "MaSP": 27,
+        "TenSP": "Toner Glycolic 7% The Ordinary",
+        "HinhAnh": "products/new/skincare-white.jpg"
+    },
+    {
+        "MaSP": 28,
+        "TenSP": "Mặt nạ đất sét thanh lọc lỗ chân lông",
+        "HinhAnh": "products/new/body-scrub.jpg"
+    },
+    {
+        "MaSP": 29,
+        "TenSP": "Mặt nạ giấy Ceramide phục hồi da",
+        "HinhAnh": "products/new/skincare-white.jpg"
+    },
+    {
+        "MaSP": 30,
+        "TenSP": "Serum Niacinamide 10% kiểm soát dầu",
+        "HinhAnh": "products/new/skincare-set.jpg"
+    },
+    {
+        "MaSP": 31,
+        "TenSP": "Serum Retinol 0.5% tái tạo da ban đêm",
+        "HinhAnh": "products/new/cream-perfume.jpg"
+    },
+    {
+        "MaSP": 32,
+        "TenSP": "Kem dưỡng Hyaluronic phục hồi 72 giờ",
+        "HinhAnh": "products/new/skincare-white.jpg"
+    },
+    {
+        "MaSP": 33,
+        "TenSP": "Kem chống nắng Sensitive SPF50 PA++++",
+        "HinhAnh": "products/new/skincare-set.jpg"
+    },
+    {
+        "MaSP": 34,
+        "TenSP": "Sữa dưỡng thể không hương liệu 200ml",
+        "HinhAnh": "products/new/body-lotion.jpg"
+    },
+    {
+        "MaSP": 35,
+        "TenSP": "Tẩy tế bào chết cơ thể đường mịn",
+        "HinhAnh": "products/new/body-scrub.jpg"
+    },
+    {
+        "MaSP": 36,
+        "TenSP": "Nước hoa nữ Floral Peony EDP",
+        "HinhAnh": "products/new/perfume-floral.jpg"
+    },
+    {
+        "MaSP": 37,
+        "TenSP": "Nước hoa nữ Amber Rose EDP",
+        "HinhAnh": "products/new/perfume-gold.jpg"
+    },
+    {
+        "MaSP": 38,
+        "TenSP": "Nước hoa nam Golden Wood EDP",
+        "HinhAnh": "products/new/perfume-black.jpg"
+    },
+    {
+        "MaSP": 39,
+        "TenSP": "Nước hoa Unisex Rain Fresh",
+        "HinhAnh": "products/new/perfume-fresh.jpg"
+    },
+    {
+        "MaSP": 40,
+        "TenSP": "Bộ cọ trang điểm chuyên nghiệp 12 cây",
+        "HinhAnh": "products/new/makeup-brushes.jpg"
+    },
+    {
+        "MaSP": 41,
+        "TenSP": "Máy rửa mặt silicone Sonic Mini",
+        "HinhAnh": "2.jpg"
+    },
+    {
+        "MaSP": 42,
+        "TenSP": "Viên uống Collagen Peptide và Vitamin C",
+        "HinhAnh": "3.jpg"
+    },
+    {
+        "MaSP": 43,
+        "TenSP": "Mặt nạ ngủ môi Berry Repair",
+        "HinhAnh": "son_duong_moi.jpg"
+    },
+    {
+        "MaSP": 44,
+        "TenSP": "Tinh dầu bưởi dưỡng tóc giảm gãy rụng",
+        "HinhAnh": "tinh_dau_buoi.jpg"
+    },
+    {
+        "MaSP": 45,
+        "TenSP": "Dầu xả Keratin phục hồi tóc hư tổn",
+        "HinhAnh": "dau_goi/8.jpg"
+    },
+    {
+        "MaSP": 46,
+        "TenSP": "Dầu tẩy trang Squalane dịu nhẹ 200ml",
+        "HinhAnh": "products/catalog-2026/09.png"
+    },
+    {
+        "MaSP": 47,
+        "TenSP": "Nước tẩy trang Micellar da nhạy cảm 400ml",
+        "HinhAnh": "products/catalog-2026/04.jpg"
+    },
+    {
+        "MaSP": 48,
+        "TenSP": "Sữa rửa mặt Salicylic Acid 2% cho da dầu",
+        "HinhAnh": "products/catalog-2026/07.jpg"
+    },
+    {
+        "MaSP": 49,
+        "TenSP": "Serum Vitamin C 15% dưỡng sáng 30ml",
+        "HinhAnh": "products/catalog-2026/07.jpg"
+    },
+    {
+        "MaSP": 50,
+        "TenSP": "Serum Peptide phục hồi đàn hồi 30ml",
+        "HinhAnh": "products/catalog-2026/09.png"
+    },
+    {
+        "MaSP": 51,
+        "TenSP": "Kem mắt Caffeine giảm bọng 20ml",
+        "HinhAnh": "products/catalog-2026/09.png"
+    },
+    {
+        "MaSP": 52,
+        "TenSP": "Kem dưỡng Cica Panthenol phục hồi da 50ml",
+        "HinhAnh": "products/catalog-2026/09.png"
+    },
+    {
+        "MaSP": 53,
+        "TenSP": "Kem chống nắng Tone Up SPF50+ PA++++",
+        "HinhAnh": "products/catalog-2026/09.png"
+    },
+    {
+        "MaSP": 54,
+        "TenSP": "Tinh chất BHA 2% làm sạch lỗ chân lông",
+        "HinhAnh": "products/catalog-2026/07.jpg"
+    },
+    {
+        "MaSP": 55,
+        "TenSP": "Mặt nạ ngủ Hyaluronic cấp nước 60ml",
+        "HinhAnh": "products/catalog-2026/09.png"
+    },
+    {
+        "MaSP": 56,
+        "TenSP": "Son dưỡng Ceramide không màu",
+        "HinhAnh": "Son_Moi/1.jpg"
+    },
+    {
+        "MaSP": 57,
+        "TenSP": "Miếng dán mụn Hydrocolloid ban đêm 36 miếng",
+        "HinhAnh": "products/catalog-2026/09.png"
+    },
+    {
+        "MaSP": 58,
+        "TenSP": "Cushion Glow Fit SPF50+ PA+++",
+        "HinhAnh": "Son_Moi/2.jpg"
+    },
+    {
+        "MaSP": 59,
+        "TenSP": "Kem nền Matte Cover 24H",
+        "HinhAnh": "Son_Moi/3.jpg"
+    },
+    {
+        "MaSP": 60,
+        "TenSP": "Che khuyết điểm Fit Me Concealer",
+        "HinhAnh": "Son_Moi/4.jpg"
+    },
+    {
+        "MaSP": 61,
+        "TenSP": "Phấn phủ bột kiềm dầu Air Blur",
+        "HinhAnh": "Son_Moi/5.jpg"
+    },
+    {
+        "MaSP": 62,
+        "TenSP": "Má hồng kem Juicy Cheek",
+        "HinhAnh": "Son_Moi/1.jpg"
+    },
+    {
+        "MaSP": 63,
+        "TenSP": "Mascara Lash Lift chống trôi",
+        "HinhAnh": "Son_Moi/2.jpg"
+    },
+    {
+        "MaSP": 64,
+        "TenSP": "Chì kẻ mày Slim Brow 1.5mm",
+        "HinhAnh": "Son_Moi/3.jpg"
+    },
+    {
+        "MaSP": 65,
+        "TenSP": "Tẩy tế bào chết da đầu Muối biển",
+        "HinhAnh": "products/catalog-2026/03.jpg"
+    },
+    {
+        "MaSP": 66,
+        "TenSP": "Mặt nạ tóc Argan phục hồi chuyên sâu",
+        "HinhAnh": "products/catalog-2026/03.jpg"
+    },
+    {
+        "MaSP": 67,
+        "TenSP": "Xịt bảo vệ tóc trước nhiệt 200ml",
+        "HinhAnh": "products/catalog-2026/04.jpg"
+    },
+    {
+        "MaSP": 68,
+        "TenSP": "Dầu dưỡng tóc Camellia bóng mượt",
+        "HinhAnh": "products/catalog-2026/04.jpg"
+    },
+    {
+        "MaSP": 69,
+        "TenSP": "Kem dưỡng tay Shea Butter 75ml",
+        "HinhAnh": "products/catalog-2026/05.jpg"
+    },
+    {
+        "MaSP": 70,
+        "TenSP": "Lăn khử mùi Niacinamide Bright 50ml",
+        "HinhAnh": "products/catalog-2026/05.jpg"
+    },
+    {
+        "MaSP": 71,
+        "TenSP": "Dầu tắm hạnh nhân cho da khô 400ml",
+        "HinhAnh": "products/catalog-2026/05.jpg"
+    },
+    {
+        "MaSP": 72,
+        "TenSP": "Kem gót chân Urea 10% phục hồi nứt nẻ",
+        "HinhAnh": "products/catalog-2026/05.jpg"
+    },
+    {
+        "MaSP": 73,
+        "TenSP": "Nước hoa Unisex Citrus Musk EDT",
+        "HinhAnh": "products/catalog-2026/05.jpg"
+    },
+    {
+        "MaSP": 74,
+        "TenSP": "Nước hoa nam Ocean Cedar EDP",
+        "HinhAnh": "products/catalog-2026/05.jpg"
+    },
+    {
+        "MaSP": 75,
+        "TenSP": "Kẹp bấm mi cong tự nhiên",
+        "HinhAnh": "products/716b0ad0-0eda-4325-ae21-5a7f745f7035.jpg"
+    }
+]
